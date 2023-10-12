@@ -1,0 +1,131 @@
+import javax.swing.*;
+
+import ConnectJDBC.ConnectJDBC;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.regex.Pattern;
+
+class Sign {
+
+    ConnectJDBC con = new ConnectJDBC();
+
+    JFrame frame;
+    JTextField t1, t2, t3, t4, t5, t6, t7, t8;
+    JButton submitButton;
+
+    Sign() {
+        frame = new JFrame("Sign Up");
+        frame.setSize(600, 500);
+        frame.setLocationRelativeTo(null);
+        frame.setLayout(null);
+
+        JLabel l1 = new JLabel("First Name*");
+        JLabel l2 = new JLabel("Middle Name");
+        JLabel l3 = new JLabel("Last Name*");
+        JLabel l4 = new JLabel("Address*");
+        JLabel l5 = new JLabel("Mobile Number*");
+        JLabel l6 = new JLabel("E-Mail*");
+        JLabel l7 = new JLabel("Password*");
+        JLabel l8 = new JLabel("Confirm Password*");
+        JLabel l9 = new JLabel("All Fields are Mandatory!");
+
+        t1 = new JTextField();
+        
+        t2 = new JTextField();
+        t3 = new JTextField();
+        t4 = new JTextField();
+        t5 = new JTextField();
+        t6 = new JTextField();
+        t7 = new JTextField();
+        t8 = new JTextField();
+
+        submitButton = new JButton("Submit");
+
+        l1.setBounds(70, 60, 100, 30);
+        l2.setBounds(70, 100, 100, 30);
+        l3.setBounds(70, 140, 100, 30);
+        l4.setBounds(70, 180, 100, 30);
+        l5.setBounds(70, 220, 100, 30);
+        l6.setBounds(70, 260, 100, 30);
+        l7.setBounds(70, 300, 100, 30);
+        l8.setBounds(70, 340, 150, 30);
+        // l9.setBounds(100, 40, 180, 30);
+
+        t1.setBounds(400, 60, 160, 30);
+        t2.setBounds(400, 100, 160, 30);
+        t3.setBounds(400, 140, 160, 30);
+        t4.setBounds(400, 180, 160, 30);
+        t5.setBounds(400, 220, 160, 30);
+        t6.setBounds(400, 260, 160, 30);
+        t7.setBounds(400, 300, 160, 30);
+        t8.setBounds(400, 340, 160, 30);
+
+        submitButton.setBounds(350, 400, 100, 30);
+
+        frame.add(l1);
+        frame.add(l2);
+        frame.add(l3);
+        frame.add(l4);
+        frame.add(l5);
+        frame.add(l6);
+        frame.add(l7);
+        frame.add(l8);
+        
+
+        frame.add(t1);
+        frame.add(t2);
+        frame.add(t3);
+        frame.add(t4);
+        frame.add(t5);
+        frame.add(t6);
+        frame.add(t7);
+        frame.add(t8);
+
+        frame.add(submitButton);
+
+        submitButton.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent e) {
+                String ValidEmail = "^[a-zA-Z0-9_! #$%&'*+/=?`{|}~^. -]+@[a-zA-Z0-9. -]+$";
+
+                Pattern pattern = Pattern.compile(ValidEmail);
+                
+                if(t1.getText().isEmpty() || t3.getText().isEmpty() || 
+                t4.getText().isEmpty() || t5.getText().isEmpty() || t6.getText().isEmpty() || 
+                t7.getText().isEmpty() || t8.getText().isEmpty()){
+                    // frame.add(l9);
+                    JOptionPane.showMessageDialog(frame, "All Fields are Mandatory!","Error!",JOptionPane.WARNING_MESSAGE);
+                }
+
+                if(t5.getText().length() < 10 || t5.getText().length() > 10){
+                    JOptionPane.showMessageDialog(frame, "Please enter valid number!", "Mobile number error!", JOptionPane.WARNING_MESSAGE);
+                }
+
+                if(!pattern.matcher(t6.getText()).matches()){
+                    JOptionPane.showMessageDialog(frame, "Please enter valid Email!", "Email Error", JOptionPane.WARNING_MESSAGE);
+                }
+
+                if(t7.getText().length() < 8){
+                    JOptionPane.showMessageDialog(frame, "Password length should be 8 character.", "Password", JOptionPane.WARNING_MESSAGE);
+                }
+                
+                if(!t7.getText().matches(t8.getText())){
+                    JOptionPane.showMessageDialog(frame, "Password doesn't match!", "password", JOptionPane.WARNING_MESSAGE);
+                }
+                
+
+            }
+        });
+
+        frame.setVisible(true);
+    }
+}
+
+public class SignUp {
+    public static void main(String[] args) {
+        
+           
+        new Sign();
+    }
+}
