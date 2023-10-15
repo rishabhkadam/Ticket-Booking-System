@@ -1,6 +1,8 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.regex.Pattern;
@@ -87,6 +89,34 @@ class Sign {
 
         frame.add(submitButton);
 
+        t5.addKeyListener(new KeyListener() {
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+                // TODO Auto-generated method stub
+                char c = e.getKeyChar();
+                if(!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))){
+                    e.consume();
+                }
+                throw new UnsupportedOperationException("Unimplemented method 'keyTyped'");
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'keyPressed'");
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'keyReleased'");
+            }
+            
+        });
+
+        
+
         submitButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
@@ -103,7 +133,7 @@ class Sign {
                             JOptionPane.WARNING_MESSAGE);
                 }
 
-                else if (t5.getText().length() < 10 || t5.getText().length() > 10) {
+                else if (t5.getText().length() < 10 || t5.getText().length() > 10 || t5.getText().matches("[0-9]+")) {
                     JOptionPane.showMessageDialog(frame, "Please enter valid number!", "Mobile number error!",
                             JOptionPane.WARNING_MESSAGE);
                 }
@@ -170,6 +200,7 @@ class Sign {
 
         frame.setVisible(true);
     }
+    
 }
 
 public class SignUp {
