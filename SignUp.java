@@ -89,34 +89,7 @@ class Sign {
 
         frame.add(submitButton);
 
-        t5.addKeyListener(new KeyListener() {
-
-            @Override
-            public void keyTyped(KeyEvent e) {
-                // TODO Auto-generated method stub
-                char c = e.getKeyChar();
-                if(!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))){
-                    e.consume();
-                }
-                throw new UnsupportedOperationException("Unimplemented method 'keyTyped'");
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'keyPressed'");
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'keyReleased'");
-            }
-            
-        });
-
         
-
         submitButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
