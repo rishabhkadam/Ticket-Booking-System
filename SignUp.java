@@ -101,29 +101,29 @@ class Sign {
 
                     JOptionPane.showMessageDialog(frame, "All Fields are Mandatory!", "Error!",
                             JOptionPane.WARNING_MESSAGE);
+                }
 
-                    if (t5.getText().length() < 10 || t5.getText().length() > 10) {
-                        JOptionPane.showMessageDialog(frame, "Please enter valid number!", "Mobile number error!",
-                                JOptionPane.WARNING_MESSAGE);
+                else if (t5.getText().length() < 10 || t5.getText().length() > 10) {
+                    JOptionPane.showMessageDialog(frame, "Please enter valid number!", "Mobile number error!",
+                            JOptionPane.WARNING_MESSAGE);
+                }
 
-                        if (!pattern.matcher(t6.getText()).matches()) {
-                            JOptionPane.showMessageDialog(frame, "Please enter valid Email!", "Email Error",
-                                    JOptionPane.WARNING_MESSAGE);
+                else if (!pattern.matcher(t6.getText()).matches()) {
+                    JOptionPane.showMessageDialog(frame, "Please enter valid Email!", "Email Error",
+                            JOptionPane.WARNING_MESSAGE);
+                }
 
-                            if (t7.getText().length() < 8) {
-                                JOptionPane.showMessageDialog(frame, "Password length should be 8 character.",
-                                        "Password", JOptionPane.WARNING_MESSAGE);
+                else if (t7.getText().length() < 8) {
+                    JOptionPane.showMessageDialog(frame, "Password length should be 8 character.",
+                            "Password", JOptionPane.WARNING_MESSAGE);
+                }
 
-                                if (!t7.getText().matches(t8.getText())) {
-                                    JOptionPane.showMessageDialog(frame, "Password doesn't match!", "password",
-                                            JOptionPane.WARNING_MESSAGE);
-                                }
-                            }
+                else if (!t7.getText().matches(t8.getText())) {
+                    JOptionPane.showMessageDialog(frame, "Password doesn't match!", "password",
+                            JOptionPane.WARNING_MESSAGE);
+                }
 
-                        }
-                    }
-
-                } else {
+                else {
 
                     String confirmDetail = "\nFirst name : '" + t1.getText() + "'\n Middle name : " + t2.getText()
                             + " \n Last name : " + t3.getText() + "\n Address : " + t4.getText() + "\n Mobile no.: "

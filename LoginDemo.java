@@ -26,7 +26,7 @@ class Login {
         l2 = new JLabel("Password");
 
         t1 = new JTextField();
-        t2 = new JPasswordField(); 
+        t2 = new JPasswordField();
 
         b1 = new JButton("Login");
         b2 = new JButton("Registration");
@@ -59,15 +59,13 @@ class Login {
                     JOptionPane.showMessageDialog(frame, "All Fields are Mandatory!", "Error!",
                             JOptionPane.WARNING_MESSAGE);
 
-                    if (!pattern.matcher(t1.getText()).matches()) {
-                        JOptionPane.showMessageDialog(frame, "Please enter valid Email!", "Error",
-                                JOptionPane.WARNING_MESSAGE);
+                } else if (!pattern.matcher(t1.getText()).matches()) {
+                    JOptionPane.showMessageDialog(frame, "Please enter valid Email!", "Error",
+                            JOptionPane.WARNING_MESSAGE);
 
-                        if (t2.getText().length() < 8) {
-                            JOptionPane.showMessageDialog(frame, "Password length should be 8 character.", "Error",
-                                    JOptionPane.WARNING_MESSAGE);
-                        }
-                    }
+                } else if (t2.getText().length() < 8) {
+                    JOptionPane.showMessageDialog(frame, "Password length should be 8 character.", "Error",
+                            JOptionPane.WARNING_MESSAGE);
                 }
 
                 else {
