@@ -1,13 +1,19 @@
-import javax.swing.*;
-
-import ConnectJDBC.ConnectJDBC;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.regex.Pattern;
 
-class Sign {
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
+import ConnectJDBC.ConnectJDBC;
+
+class Sign {
     ConnectJDBC con = new ConnectJDBC();
 
     JFrame frame;
@@ -28,10 +34,9 @@ class Sign {
         JLabel l6 = new JLabel("E-Mail*");
         JLabel l7 = new JLabel("Password*");
         JLabel l8 = new JLabel("Confirm Password*");
-        JLabel l9 = new JLabel("All Fields are Mandatory!");
+        // JLabel l9 = new JLabel("All Fields are Mandatory!");
 
         t1 = new JTextField();
-        
         t2 = new JTextField();
         t3 = new JTextField();
         t4 = new JTextField();
@@ -50,7 +55,6 @@ class Sign {
         l6.setBounds(70, 260, 100, 30);
         l7.setBounds(70, 300, 100, 30);
         l8.setBounds(70, 340, 150, 30);
-        // l9.setBounds(100, 40, 180, 30);
 
         t1.setBounds(400, 60, 160, 30);
         t2.setBounds(400, 100, 160, 30);
@@ -71,7 +75,6 @@ class Sign {
         frame.add(l6);
         frame.add(l7);
         frame.add(l8);
-        
 
         frame.add(t1);
         frame.add(t2);
@@ -85,35 +88,82 @@ class Sign {
         frame.add(submitButton);
 
         submitButton.addActionListener(new ActionListener() {
-            
+
             public void actionPerformed(ActionEvent e) {
+
                 String ValidEmail = "^[a-zA-Z0-9_! #$%&'*+/=?`{|}~^. -]+@[a-zA-Z0-9. -]+$";
 
                 Pattern pattern = Pattern.compile(ValidEmail);
-                
-                if(t1.getText().isEmpty() || t3.getText().isEmpty() || 
-                t4.getText().isEmpty() || t5.getText().isEmpty() || t6.getText().isEmpty() || 
-                t7.getText().isEmpty() || t8.getText().isEmpty()){
-                    // frame.add(l9);
-                    JOptionPane.showMessageDialog(frame, "All Fields are Mandatory!","Error!",JOptionPane.WARNING_MESSAGE);
-                }
 
-                if(t5.getText().length() < 10 || t5.getText().length() > 10){
-                    JOptionPane.showMessageDialog(frame, "Please enter valid number!", "Mobile number error!", JOptionPane.WARNING_MESSAGE);
-                }
+                if (t1.getText().isEmpty() || t3.getText().isEmpty() ||
+                        t4.getText().isEmpty() || t5.getText().isEmpty() || t6.getText().isEmpty() ||
+                        t7.getText().isEmpty() || t8.getText().isEmpty()) {
 
-                if(!pattern.matcher(t6.getText()).matches()){
-                    JOptionPane.showMessageDialog(frame, "Please enter valid Email!", "Email Error", JOptionPane.WARNING_MESSAGE);
-                }
+                    JOptionPane.showMessageDialog(frame, "All Fields are Mandatory!", "Error!",
+                            JOptionPane.WARNING_MESSAGE);
 
-                if(t7.getText().length() < 8){
-                    JOptionPane.showMessageDialog(frame, "Password length should be 8 character.", "Password", JOptionPane.WARNING_MESSAGE);
+                    if (t5.getText().length() < 10 || t5.getText().length() > 10) {
+                        JOptionPane.showMessageDialog(frame, "Please enter valid number!", "Mobile number error!",
+                                JOptionPane.WARNING_MESSAGE);
+
+                        if (!pattern.matcher(t6.getText()).matches()) {
+                            JOptionPane.showMessageDialog(frame, "Please enter valid Email!", "Email Error",
+                                    JOptionPane.WARNING_MESSAGE);
+
+                            if (t7.getText().length() < 8) {
+                                JOptionPane.showMessageDialog(frame, "Password length should be 8 character.",
+                                        "Password", JOptionPane.WARNING_MESSAGE);
+
+                                if (!t7.getText().matches(t8.getText())) {
+                                    JOptionPane.showMessageDialog(frame, "Password doesn't match!", "password",
+                                            JOptionPane.WARNING_MESSAGE);
+                                }
+                            }
+
+                        }
+                    }
+
+                } else {
+
+                    String confirmDetail = "\nFirst name : '" + t1.getText() + "'\n Middle name : " + t2.getText()
+                            + " \n Last name : " + t3.getText() + "\n Address : " + t4.getText() + "\n Mobile no.: "
+                            + t5.getText() + "\n Email : " + t6.getText() + "\n Password : " + t7.getText() + "\n ";
+
+                    int choice = JOptionPane.showConfirmDialog(frame, confirmDetail, "Confirmation",
+                            JOptionPane.YES_NO_OPTION);
+
+                    if (choice == JOptionPane.YES_OPTION) {
+
+                        try {
+
+                            PreparedStatement preparedStatement = con.connection
+                                    .prepareStatement("INSERT INTO registration_detail VALUES(?,?,?,?,?,?,?)");
+                            preparedStatement.setString(1, t1.getText());
+                            preparedStatement.setString(2, t2.getText());
+                            preparedStatement.setString(3, t3.getText());
+                            preparedStatement.setString(4, t4.getText());
+                            preparedStatement.setString(5, t5.getText());
+                            preparedStatement.setString(6, t6.getText());
+                            preparedStatement.setString(7, t7.getText());
+
+                            preparedStatement.executeUpdate();
+                            preparedStatement.close();
+                            con.connection.close();
+
+                        } catch (SQLException ae) {
+
+                            ae.printStackTrace();
+                        }
+
+                        // con.QueryUpdate(inputerQuery);
+                        JOptionPane.showMessageDialog(frame, "You are registered successfully!\nLog in now!",
+                                "Sucessfull", JOptionPane.INFORMATION_MESSAGE);
+                        frame.dispose();
+                        new Login();
+
+                    }
+
                 }
-                
-                if(!t7.getText().matches(t8.getText())){
-                    JOptionPane.showMessageDialog(frame, "Password doesn't match!", "password", JOptionPane.WARNING_MESSAGE);
-                }
-                
 
             }
         });
@@ -124,8 +174,7 @@ class Sign {
 
 public class SignUp {
     public static void main(String[] args) {
-        
-           
+
         new Sign();
     }
 }
