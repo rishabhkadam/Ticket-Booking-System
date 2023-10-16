@@ -1,7 +1,5 @@
 import java.util.*;
 import javax.swing.*;
-import java.util.Date;
-import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
@@ -44,50 +42,50 @@ class Book {
                 "06:00 PM- ₹250", "07:00 PM- ₹290", "08:00 PM - ₹290", "09:00 PM - ₹290" };
         JComboBox timeBox = new JComboBox<>(timeItem);
 
-        if (timeBox.getSelectedIndex() == 1) {
-            totalPrice = totalPrice + 190;
+        timeBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
 
-        }
-        if (timeBox.getSelectedIndex() == 2) {
-            totalPrice = totalPrice + 190;
-        }
-        if (timeBox.getSelectedIndex() == 3) {
-            totalPrice = totalPrice + 200;
-        }
-        if (timeBox.getSelectedIndex() == 4) {
-            totalPrice = totalPrice + 210;
-        }
-        if (timeBox.getSelectedIndex() == 5) {
-            totalPrice = totalPrice + 220;
-        }
-        if (timeBox.getSelectedIndex() == 6) {
-            totalPrice = totalPrice + 220;
-        }
-        if (timeBox.getSelectedIndex() == 7) {
-            totalPrice = totalPrice + 230;
-        }
-        if (timeBox.getSelectedIndex() == 8) {
-            totalPrice = totalPrice + 250;
-        }
-        if (timeBox.getSelectedIndex() == 9) {
-            totalPrice = totalPrice + 290;
-        }
-        if (timeBox.getSelectedIndex() == 10) {
-            totalPrice = totalPrice + 290;
-        }
-        if (timeBox.getSelectedIndex() == 11) {
-            totalPrice = totalPrice + 290;
-        }
+                if (timeBox.getSelectedIndex() == 1) {
+                    totalPrice = totalPrice + 190;
+
+                } else if (timeBox.getSelectedIndex() == 2) {
+                    totalPrice = totalPrice + 190;
+                } else if (timeBox.getSelectedIndex() == 3) {
+                    totalPrice = totalPrice + 200;
+                } else if (timeBox.getSelectedIndex() == 4) {
+                    totalPrice = totalPrice + 210;
+                } else if (timeBox.getSelectedIndex() == 5) {
+                    totalPrice = totalPrice + 220;
+                } else if (timeBox.getSelectedIndex() == 6) {
+                    totalPrice = totalPrice + 220;
+                } else if (timeBox.getSelectedIndex() == 7) {
+                    totalPrice = totalPrice + 230;
+                } else if (timeBox.getSelectedIndex() == 8) {
+                    totalPrice = totalPrice + 250;
+                } else if (timeBox.getSelectedIndex() == 9) {
+                    totalPrice = totalPrice + 290;
+                } else if (timeBox.getSelectedIndex() == 10) {
+                    totalPrice = totalPrice + 290;
+                } else if (timeBox.getSelectedIndex() == 11) {
+                    totalPrice = totalPrice + 290;
+                }
+
+            }
+        });
 
         String[] seatItem = { "Seat Type", "Silver", "Gold - +₹10", "Diamond - +₹50" };
         JComboBox seatBox = new JComboBox<>(seatItem);
 
-        if (seatBox.getSelectedIndex() == 2) {
-            totalPrice = totalPrice + 10;
-        }
-        if (seatBox.getSelectedIndex() == 3) {
-            totalPrice = totalPrice + 50;
-        }
+        seatBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (seatBox.getSelectedIndex() == 2) {
+                    totalPrice = totalPrice + 10;
+                } else if (seatBox.getSelectedIndex() == 3) {
+                    totalPrice = totalPrice + 50;
+                }
+            }
+        });
+
         System.out.println(totalPrice);
         t6 = new JTextField();
 

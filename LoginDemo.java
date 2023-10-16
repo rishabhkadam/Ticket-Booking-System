@@ -1,8 +1,6 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.sql.*;
 import java.util.regex.Pattern;
 
@@ -85,7 +83,7 @@ class Login {
 
                         if (rs.next()) {
                             frame.dispose();
-                            JOptionPane.showMessageDialog(frame, "Login sucessfully!", "good",
+                            JOptionPane.showMessageDialog(frame, "Login sucessfully!", "Successful",
                                     JOptionPane.INFORMATION_MESSAGE);
 
                         } else {
