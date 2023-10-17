@@ -1,6 +1,9 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
-class Flight
+class Flight implements ActionListener
 {
 JFrame f;
 JLabel l1,l2,l3,l4,l5,l6;
@@ -74,6 +77,13 @@ b2.setFont(new Font("Dialog" , Font.BOLD , 30));
 
 t1.setFont(new Font("Arial" , Font.BOLD , 30));
 f.setVisible(true);
+
+b1.addActionListener(this);
+b2.addActionListener(this);
+}
+
+public void actionPerformed(ActionEvent e){
+
 }
 }
 
@@ -81,6 +91,6 @@ class BookFlight
 {
     public static void main(String[] s)
     {
-       Flight ff=new Flight();
+       new Flight();
     }
 }
