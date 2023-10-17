@@ -83,8 +83,7 @@ class Login {
 
                         if (rs.next()) {
                             frame.dispose();
-                            JOptionPane.showMessageDialog(frame, "Login sucessfully!", "Successful",
-                                    JOptionPane.INFORMATION_MESSAGE);
+                            new Choose();
 
                         } else {
                             JOptionPane.showMessageDialog(frame, "Email or password is wrong!", "Error",
@@ -116,34 +115,3 @@ public class LoginDemo {
         new Login();
     }
 }
-
-// ConnectJDBC con = new ConnectJDBC();
-
-// String email = t1.getText();
-// String password = t2.getText();
-
-// String sql = "Select * from registration_detail where email='"+email+"' and
-// password='"+password+"'";
-
-// try {
-// Statement statement;
-// statement = con.connection.createStatement();
-// ResultSet rs = statement.executeQuery(sql);
-
-// if (rs.next()) {
-// frame.dispose();
-// JOptionPane.showMessageDialog(frame, "Login sucessfully!", "good",
-// JOptionPane.INFORMATION_MESSAGE);
-
-// }
-// else{
-// JOptionPane.showMessageDialog(frame, "Email or password is wrong!", "Error",
-// JOptionPane.ERROR_MESSAGE);
-// t1.setText("");
-// t2.setText("");
-// }
-
-// }
-// catch (Exception ee) {
-// System.out.println(ee);
-// }
