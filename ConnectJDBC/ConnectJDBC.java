@@ -12,7 +12,7 @@ public class ConnectJDBC {
 
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Booking_db", "root", "rishabh20");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Booking_db", "root", "dewanmca");
 
             // Statement statement;
             // statement = connection.createStatement();
@@ -49,3 +49,4 @@ public class ConnectJDBC {
     }
 
 }
+

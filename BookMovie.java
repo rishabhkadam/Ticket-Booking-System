@@ -2,14 +2,20 @@ import java.util.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.Statement;
+import java.sql.*;
+import java.sql.ResultSet;
 import java.time.LocalDate;
+import ConnectJDBC.ConnectJDBC;
 
 class Book {
+    ConnectJDBC con = new ConnectJDBC();
     JFrame f;
     JTextField t1, t2, t3, t4, t5, t6;
     JButton b;
     JLabel l1, l2, l3, l4, l5, l6;
     int totalPrice = 0;
+    String userGetName;
 
     Book() {
         f = new JFrame("Book Show");
@@ -86,7 +92,6 @@ class Book {
             }
         });
 
-        System.out.println(totalPrice);
         t6 = new JTextField();
 
         b = new JButton("Book");
@@ -125,7 +130,50 @@ class Book {
 
         b.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println(totalPrice);
+
+
+                Login l = new Login();
+                String getEmail = l.t1.getText();
+
+                int total = totalPrice * Integer.parseInt(t6.getText());
+
+                String nameSQL = "select first_name,middle_name,last_name from registration_detail where email = '"
+                        + getEmail + "'";
+
+                try {
+
+                    PreparedStatement statement = con.connection.prepareStatement(nameSQL);
+
+                    ResultSet rs = statement.executeQuery();
+                    if (rs.next()) {
+                        userGetName = rs.getString(0);
+                    }
+
+                } catch (Exception ee) {
+                    System.out.println(ee);
+                }
+
+                try {
+                    PreparedStatement statement = con.connection
+                            .prepareStatement("INSERT INTO movie_show_detail VALUES(?,?,?,?,?,?,?,?)");
+                    statement.setString(1, userGetName);
+                    statement.setString(2, getEmail);
+                    statement.setString(3, t2.getText());
+                    statement.setString(4, t3.getText());
+                    statement.setString(5, String.valueOf(timeBox));
+                    statement.setString(6, String.valueOf(seatBox));
+                    statement.setString(7, t6.getText());
+                    statement.setString(8, String.valueOf(total));
+
+                    statement.executeUpdate();
+                    statement.close();
+                    con.connection.close();
+
+                } catch (Exception ee) {
+                    ee.printStackTrace();
+                }
+
+                JOptionPane.showMessageDialog(f, "Ticket Booked!", "Sucessfully", JOptionPane.INFORMATION_MESSAGE);
 
             }
         });

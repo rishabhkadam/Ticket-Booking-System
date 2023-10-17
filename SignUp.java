@@ -184,8 +184,7 @@ class Sign {
 
                         try {
 
-                            PreparedStatement preparedStatement = con.connection
-                                    .prepareStatement("INSERT INTO registration_detail VALUES(?,?,?,?,?,?,?)");
+                            PreparedStatement preparedStatement = con.connection.prepareStatement("INSERT INTO registration_detail VALUES(?,?,?,?,?,?,?)");
                             preparedStatement.setString(1, t1.getText());
                             preparedStatement.setString(2, t2.getText());
                             preparedStatement.setString(3, t3.getText());
