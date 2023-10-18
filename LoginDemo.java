@@ -1,3 +1,4 @@
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -82,7 +83,6 @@ class Login {
                         ResultSet rs = statement.executeQuery(sql);
 
                         if (rs.next()) {
-                            frame.dispose();
                             new Choose();
 
                         } else {
@@ -106,12 +106,17 @@ class Login {
             }
         });
 
+        
+
+    }
+    public String GetEmail(){
+        return t1.getText();
     }
 
 }
 
 public class LoginDemo {
     public static void main(String[] args) {
-        new Login();
+        Login l = new Login();
     }
 }

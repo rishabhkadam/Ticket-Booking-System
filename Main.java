@@ -51,7 +51,9 @@ b3.addActionListener(this);
 
 
 public void actionPerformed(ActionEvent e){
-        if(e.getSource() == b1){}
+        if(e.getSource() == b1){
+            new Book();
+        }
         if(e.getSource() == b2){
             f.dispose();
             new Flight();

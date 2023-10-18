@@ -15,12 +15,17 @@ class Book {
     JLabel l1, l2, l3, l4, l5, l6;
     int totalPrice = 0;
     String userGetName;
+    
+    // LoginDemo ld = new LoginDemo();
+
+    
 
     Book() {
         f = new JFrame("Book Show");
         f.setSize(800, 500);
         f.setLocationRelativeTo(null);
         f.setLayout(null);
+        
 
         Random random = new Random();
 
@@ -126,53 +131,59 @@ class Book {
         f.add(t6);
 
         f.add(b);
+        // String getEmail = l.t1.getText();
+
 
         b.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-
                 Login l = new Login();
-                String getEmail = l.t1.getText();
+                
+                
 
                 int total = totalPrice * Integer.parseInt(t6.getText());
 
-                String nameSQL = "select first_name,middle_name,last_name from registration_detail where email = '"
-                        + getEmail + "'";
+                String nameSQL = "SELECT first_name FROM registration_detail WHERE email = '"+l.GetEmail()+"'";
+
 
                 try {
 
-                    PreparedStatement statement = con.connection.prepareStatement(nameSQL);
+                    Statement statement = con.connection.createStatement();
 
-                    ResultSet rs = statement.executeQuery();
-                    if (rs.next()) {
-                        userGetName = rs.getString(0);
+                    // statement.setString(1, getEmail);
+
+                    ResultSet rs = statement.executeQuery(nameSQL);
+                    
+                    while(rs.next()) {
+                        userGetName = rs.getString("first_name");
                     }
+                    statement.close();
 
                 } catch (Exception ee) {
                     System.out.println(ee);
+                    
                 }
 
                 try {
-                    PreparedStatement statement = con.connection
-                            .prepareStatement("INSERT INTO movie_show_detail VALUES(?,?,?,?,?,?,?,?)");
+                    PreparedStatement statement = con.connection.prepareStatement("INSERT INTO movie_show_detail VALUES(?,?,?,?,?,?,?,?)");
                     statement.setString(1, userGetName);
-                    statement.setString(2, getEmail);
+                    statement.setString(2, l.GetEmail());
                     statement.setString(3, t2.getText());
                     statement.setString(4, t3.getText());
-                    statement.setString(5, String.valueOf(timeBox));
-                    statement.setString(6, String.valueOf(seatBox));
+                    statement.setString(5, String.valueOf(timeBox.getSelectedItem()));
+                    statement.setString(6, String.valueOf(seatBox.getSelectedItem()));
                     statement.setString(7, t6.getText());
                     statement.setString(8, String.valueOf(total));
 
                     statement.executeUpdate();
                     statement.close();
                     con.connection.close();
+                    JOptionPane.showMessageDialog(f, "Ticket Booked!", "Sucessfully", JOptionPane.INFORMATION_MESSAGE);
 
                 } catch (Exception ee) {
                     ee.printStackTrace();
                 }
 
-                JOptionPane.showMessageDialog(f, "Ticket Booked!", "Sucessfully", JOptionPane.INFORMATION_MESSAGE);
 
             }
         });
