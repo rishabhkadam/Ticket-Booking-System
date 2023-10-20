@@ -1,14 +1,14 @@
-import java.awt.*;
+// import java.awt.Button;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.event.MenuListener;
 class Choose implements ActionListener
 {
 JFrame f;
 JButton b1,b2,b3;
 JCheckBox c;
-Choice ch;
 
 Choose()
 {
@@ -21,26 +21,22 @@ b1=new JButton("Movie Ticket");
 b2=new JButton("Flight Ticket");
 b3=new JButton("Bus Ticket");
 
-c=new JCheckBox("Setting");
-
-ch=new Choice();
-
 b1.setBounds(200,100,100,30);
 b2.setBounds(200,140,100,30);
 b3.setBounds(200,180,100,30);
 
-c.setBounds(400,10,100,30);
+JMenu setMenu = new JMenu("Setting");
+JMenuItem menuItem = new JMenuItem("Change Password");
+setMenu.add(menuItem);
+// menuItem.setActionCommand("Change Password");
 
-ch.setBounds(380,50,100,30);
+// menuItem.addActionListener(this);
+f.add(menuItem);
+
 f.add(b1);
 f.add(b2);
 f.add(b3);
-f.add(c);
-f.add(ch);
 
-ch.add("Change Password");
-ch.add("Delete Account");
-ch.add("Logout");
 
 f.setVisible(true);
 

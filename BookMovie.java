@@ -15,10 +15,7 @@ class Book {
     JLabel l1, l2, l3, l4, l5, l6;
     int totalPrice = 0;
     String userGetName;
-    
-    // LoginDemo ld = new LoginDemo();
-
-    
+    Login l = new Login();
 
     Book() {
         f = new JFrame("Book Show");
@@ -26,7 +23,6 @@ class Book {
         f.setLocationRelativeTo(null);
         f.setLayout(null);
         
-
         Random random = new Random();
 
         LocalDate date = LocalDate.now();
@@ -131,26 +127,22 @@ class Book {
         f.add(t6);
 
         f.add(b);
-        // String getEmail = l.t1.getText();
-
 
         b.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                Login l = new Login();
-                
-                
+                GetEmail gt = new GetEmail();
 
                 int total = totalPrice * Integer.parseInt(t6.getText());
 
-                String nameSQL = "SELECT first_name FROM registration_detail WHERE email = '"+l.GetEmail()+"'";
+
+
+                String nameSQL = "SELECT first_name FROM registration_detail WHERE email = '"+gt.showEmail()+"'";
 
 
                 try {
 
                     Statement statement = con.connection.createStatement();
-
-                    // statement.setString(1, getEmail);
 
                     ResultSet rs = statement.executeQuery(nameSQL);
                     
@@ -167,7 +159,7 @@ class Book {
                 try {
                     PreparedStatement statement = con.connection.prepareStatement("INSERT INTO movie_show_detail VALUES(?,?,?,?,?,?,?,?)");
                     statement.setString(1, userGetName);
-                    statement.setString(2, l.GetEmail());
+                    statement.setString(2, gt.showEmail());
                     statement.setString(3, t2.getText());
                     statement.setString(4, t3.getText());
                     statement.setString(5, String.valueOf(timeBox.getSelectedItem()));

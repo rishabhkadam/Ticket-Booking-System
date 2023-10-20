@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,7 +8,8 @@ import ConnectJDBC.ConnectJDBC;
 
 class Login {
     JFrame frame;
-    JTextField t1, t2;
+    JTextField t1;
+    JTextField t2;
     JButton b1, b2;
     JLabel l1, l2;
 
@@ -20,7 +20,6 @@ class Login {
         frame.setLocationRelativeTo(null);
         frame.setLayout(null);
 
-        // Font font = new Font("Courier", Font.ITALIC, 50);
         l1 = new JLabel("Email");
         l2 = new JLabel("Password");
 
@@ -83,7 +82,7 @@ class Login {
                         ResultSet rs = statement.executeQuery(sql);
 
                         if (rs.next()) {
-                            new Choose();
+                            Choose ch = new Choose();
 
                         } else {
                             JOptionPane.showMessageDialog(frame, "Email or password is wrong!", "Error",
@@ -106,11 +105,6 @@ class Login {
             }
         });
 
-        
-
-    }
-    public String GetEmail(){
-        return t1.getText();
     }
 
 }
