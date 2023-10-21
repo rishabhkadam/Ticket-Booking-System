@@ -87,6 +87,7 @@ class Login {
                         if (rs.next()) {
                             GetEmail.g_email = t1.getText();
                             new Choose();
+                            frame.dispose();
 
                         } else {
                             JOptionPane.showMessageDialog(frame, "Email or password is wrong!", "Error",

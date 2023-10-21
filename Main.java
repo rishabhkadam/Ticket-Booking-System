@@ -1,13 +1,10 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -72,32 +69,75 @@ class Choose implements ActionListener {
         b2.setBounds(200, 140, 150, 30);
         b3.setBounds(200, 180, 150, 30);
 
-        // label.setBounds(150, 10, 250, 20);
-
-        // downButton.setBounds(410, 10, 30, 25);
-        // logoutButton.setBounds(750, 10, 50, 25);
-
-        String item[] = { "Change Password", "Delete my Account" };
-
         popupMenu = new JPopupMenu();
-        for (int i = 0; i < item.length; i++) {
-            JMenuItem menuItem = new JMenuItem(item[i]);
-            menuItem.addActionListener((ActionListener) new MenuItemListener());
-            popupMenu.add(menuItem);
+        JMenuItem menuItem1 = new JMenuItem("Chnage Password");
+        JMenuItem menuItem2 = new JMenuItem("Delete my Account");
 
-        }
+        popupMenu.add(menuItem1);
+        popupMenu.add(menuItem2);
+
+        menuItem1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new ChangePassword();
+                f.dispose();
+            }
+        });
+
+        menuItem2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Object[] objects = { "Delete", "Cancel" };
+
+                int choice = JOptionPane.showOptionDialog(f, "confirm", "Are you really want to delete your account?",
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, objects, objects[1]);
+
+                if (choice == JOptionPane.OK_OPTION) {
+
+                    try {
+                        PreparedStatement statement = con.connection
+                                .prepareStatement("delete from registration_detail where email=?");
+                        statement.setString(1, GetEmail.g_email);
+
+                        statement.executeUpdate();
+                        statement.close();
+                        con.connection.close();
+
+                    } catch (Exception ee) {
+                        // TODO: handle exception
+                        ee.printStackTrace();
+                    }
+
+                    JOptionPane.showMessageDialog(f, "Sucessful", "Password Changed!", JOptionPane.INFORMATION_MESSAGE);
+                    f.dispose();
+                    new Login();
+                }
+            }
+        });
+
         downButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 popupMenu.show(downButton, 0, downButton.getHeight());
             }
         });
+
+        logoutButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                Object[] options = { "Logout", "Cancel" };
+                int choice = JOptionPane.showOptionDialog(f, "Are you sure want to logout?", "Confirmation",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+                if (choice == JOptionPane.YES_OPTION) {
+                    f.dispose();
+                    new Login();
+
+                }
+            }
+        });
         panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        panel.setBounds(0, 0,790, 30);
+        panel.setBounds(0, 0, 790, 30);
         panel.setBackground(Color.BLACK);
         panel.setBorder(new EmptyBorder(0, 0, 0, 10));
         downButton.setBorder(new EmptyBorder(0, 0, 0, 10));
 
-        
         panel.add(label);
         panel.add(downButton);
         panel.add(logoutButton);
@@ -134,14 +174,4 @@ class Main {
     public static void main(String[] s) {
         Choose cc = new Choose();
     }
-}
-
-class MenuItemListener implements ActionListener {
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        JOptionPane.showMessageDialog(null, "Selected: " + e.getActionCommand());
-
-    }
-
 }

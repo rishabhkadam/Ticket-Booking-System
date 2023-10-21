@@ -71,7 +71,6 @@ class Sign {
         JLabel l6 = new JLabel("E-Mail*");
         JLabel l7 = new JLabel("Password*");
         JLabel l8 = new JLabel("Confirm Password*");
-        // JLabel l9 = new JLabel("All Fields are Mandatory!");
 
         t1 = new JTextField();
         t2 = new JTextField();
