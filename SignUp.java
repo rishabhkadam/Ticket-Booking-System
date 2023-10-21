@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import ConnectJDBC.ConnectJDBC;
@@ -78,8 +79,8 @@ class Sign {
         t4 = new JTextField();
         t5 = new JTextField();
         t6 = new JTextField();
-        t7 = new JTextField();
-        t8 = new JTextField();
+        t7 = new JPasswordField();
+        t8 = new JPasswordField();
 
         submitButton = new JButton("Submit");
 

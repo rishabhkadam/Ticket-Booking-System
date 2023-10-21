@@ -17,6 +17,7 @@ class FlightList {
         FlightList(){
             f = new JFrame("Select Flight");
             f.setSize(800, 500);
+            f.setResizable(false);
             f.setLayout(null);
             f.setLocationRelativeTo(null);
             f.setVisible(true);
@@ -29,7 +30,8 @@ class FlightList {
             label.setForeground(Color.WHITE);
             label.setBackground(Color.BLACK);
             label.setBorder(new EmptyBorder(0, 10, 0, 0));
-
+            
+            f_List = new List(10);
             
             String flit_list[] = {"Air Asia","Air Carnival","Air costa","Air india","Indigo","Air India Express","Jet Airways","Vistara Airlines","Jet Konnect"};
             

@@ -1,4 +1,6 @@
 import javax.swing.*;
+
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
@@ -19,6 +21,7 @@ class Login {
         frame.setSize(600, 400);
         frame.setLocationRelativeTo(null);
         frame.setLayout(null);
+        frame.getContentPane().setBackground(Color.WHITE);
 
         l1 = new JLabel("Email");
         l2 = new JLabel("Password");
@@ -82,7 +85,8 @@ class Login {
                         ResultSet rs = statement.executeQuery(sql);
 
                         if (rs.next()) {
-                            Choose ch = new Choose();
+                            GetEmail.g_email = t1.getText();
+                            new Choose();
 
                         } else {
                             JOptionPane.showMessageDialog(frame, "Email or password is wrong!", "Error",
