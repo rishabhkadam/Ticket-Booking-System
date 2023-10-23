@@ -120,7 +120,7 @@ class Sign {
         frame.add(t6);
         frame.add(t7);
         frame.add(t8);
-
+        frame.getRootPane().setDefaultButton(submitButton);
         frame.add(submitButton);
 
         

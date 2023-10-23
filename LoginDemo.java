@@ -45,6 +45,8 @@ class Login {
         frame.add(l2);
         frame.add(t1);
         frame.add(t2);
+        
+        frame.getRootPane().setDefaultButton(b1);
         frame.add(b1);
         frame.add(b2);
 

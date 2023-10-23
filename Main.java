@@ -35,7 +35,7 @@ class Choose implements ActionListener {
         f.setLayout(null);
         f.getContentPane().setBackground(Color.WHITE);
 
-        b1 = new JButton("Movie Ticket");
+        b1 = new JButton("Train Ticket");
         b2 = new JButton("Flight Ticket");
         b3 = new JButton("Bus Ticket");
 
@@ -158,13 +158,14 @@ class Choose implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == b1) {
-            new Book();
+    
         }
         if (e.getSource() == b2) {
             f.dispose();
             new Flight();
         }
         if (e.getSource() == b3) {
+            
         }
     }
 

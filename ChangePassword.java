@@ -41,6 +41,7 @@ public class ChangePassword implements ActionListener {
         f.add(c_pass);
         f.add(t_pass);
         f.add(t_c_pass);
+        f.getRootPane().setDefaultButton(confirmButton);
         f.add(confirmButton);
         f.add(cancelButton);
 
@@ -84,9 +85,10 @@ public class ChangePassword implements ActionListener {
 
                 JOptionPane.showMessageDialog(f, "Sucessful", "Password Changed!", JOptionPane.INFORMATION_MESSAGE);
                 f.dispose();
-                new Login();
-
+                System.exit(0);
+                
             }
+            new Login();
         }
 
         else if (e.getSource() == cancelButton) {
