@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import ConnectJDBC.ConnectJDBC;
-
+import java.time.LocalDate;
 
 class Flight implements ActionListener {
     JFrame f;
@@ -11,8 +11,8 @@ class Flight implements ActionListener {
     JTextField t3, t4, t5, t6;
     JButton b1, b2;
     ConnectJDBC con = new ConnectJDBC();
-    JComboBox<String> comboBox1,comboBox2;
-    
+    JComboBox<String> comboBox1, comboBox2;
+
     Flight() {
         f = new JFrame("Book Your Flight");
         f.setSize(500, 500);
@@ -25,9 +25,11 @@ class Flight implements ActionListener {
         l4 = new JLabel("Adult");
         l5 = new JLabel("Children");
 
+        LocalDate date = LocalDate.now();
+        t3 = new JTextField(String.valueOf(date));
         // t1 = new JTextField();
         // t2 = new JTextField();
-        t3 = new JTextField();
+        // t3 = new JTextField();
         t4 = new JTextField();
         t5 = new JTextField();
 
@@ -40,7 +42,6 @@ class Flight implements ActionListener {
         l4.setBounds(50, 200, 100, 20);
         l5.setBounds(50, 250, 100, 20);
 
-        
         t3.setBounds(300, 150, 150, 30);
         t4.setBounds(300, 200, 150, 30);
         t5.setBounds(300, 250, 150, 30);
@@ -49,7 +50,7 @@ class Flight implements ActionListener {
         b2.setBounds(300, 400, 150, 40);
 
         String[] airports = {
-            "Select",
+                "Select",
                 "Agartala (IXA)",
                 "Agra (AGR)",
                 "Ahmedabad (AMD)",
@@ -131,7 +132,7 @@ class Flight implements ActionListener {
         DefaultComboBoxModel<String> cityComboBoxModel = new DefaultComboBoxModel<>(airports);
         comboBox1 = new JComboBox<>(cityComboBoxModel);
         comboBox1.setBounds(300, 50, 150, 30);
-        
+
         DefaultComboBoxModel<String> cityComboBoxModel2 = new DefaultComboBoxModel<>(airports);
         comboBox2 = new JComboBox<>(cityComboBoxModel2);
         comboBox2.setBounds(300, 100, 150, 30);
@@ -171,22 +172,42 @@ class Flight implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == b1) {
-            // if (t1.getText().isEmpty() || t2.getText().isEmpty() ||
-            // t3.getText().isEmpty() || t4.getText().isEmpty()
-            // || t5.getText().isEmpty()) {
-            // JOptionPane.showMessageDialog(f, "All Fields are Mandatory!", "Error!",
-            // JOptionPane.WARNING_MESSAGE);
-            // } else if ((!t4.getText().matches("[0-9]+")) ||
-            // (!t5.getText().matches("[0-9]+"))) {
-            // JOptionPane.showMessageDialog(f, "Please enter valid Detail", "error!",
-            // JOptionPane.WARNING_MESSAGE);
-            // }
 
-            // }
-            if (e.getSource() == b2) {
-                f.dispose();
-                new Choose();
+            if (t3.getText().isEmpty() || t4.getText().isEmpty()
+                    || t5.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(f, "All Fields are Mandatory!", "Error!",
+                        JOptionPane.WARNING_MESSAGE);
             }
+
+            else if ((comboBox1.getSelectedIndex() == 0) || (comboBox2.getSelectedIndex() == 0)) {
+                JOptionPane.showMessageDialog(f, "Please select place", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            else if (comboBox1.getSelectedItem() == comboBox2.getSelectedItem()) {
+                JOptionPane.showMessageDialog(f, "Both Places are same. Please select different.", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+
+            else if ((!t4.getText().matches("[0-9]+")) ||
+                    (!t5.getText().matches("[0-9]+"))) {
+                JOptionPane.showMessageDialog(f, "Please enter valid Detail", "error!",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+            else
+            {
+                GetFlightDetail.dept = (String) comboBox1.getSelectedItem();
+                GetFlightDetail.dest = (String) comboBox2.getSelectedItem();
+                GetFlightDetail.date = t3.getText();
+                GetFlightDetail.adult = t4.getText();
+                GetFlightDetail.child = t5.getText();
+
+                new FlightList();
+            }
+
+        }
+        if (e.getSource() == b2) {
+            f.dispose();
+            new Choose();
         }
     }
 }

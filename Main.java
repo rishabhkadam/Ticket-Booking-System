@@ -108,7 +108,7 @@ class Choose implements ActionListener {
 
                     JOptionPane.showMessageDialog(f, "Sucessful", "Password Changed!", JOptionPane.INFORMATION_MESSAGE);
                     f.dispose();
-                    new Login();
+                    // new Login();
                 }
             }
         });
