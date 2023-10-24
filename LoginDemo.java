@@ -1,8 +1,22 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.sql.*;
 import java.util.regex.Pattern;
 
@@ -12,16 +26,27 @@ class Login {
     JFrame frame;
     JTextField t1;
     JTextField t2;
-    JButton b1, b2;
+    JButton b1;
+    JLabel b2;
     JLabel l1, l2;
+    // JLabel back;
+    // BufferedImage img;
+    ConnectJDBC con = new ConnectJDBC();
 
     Login() {
 
         frame = new JFrame("Login");
-        frame.setSize(600, 400);
+        frame.setSize(800, 500);
         frame.setLocationRelativeTo(null);
         frame.setLayout(null);
         frame.getContentPane().setBackground(Color.WHITE);
+        
+        // ImageIcon imageIcon = new ImageIcon(new ImageIcon("backgound.jpg").getImage().getScaledInstance(800, 500, Image.SCALE_DEFAULT));
+        // back.setIcon(imageIcon);
+
+        // back.setIcon(new ImageIcon(new ImageIcon("background2.jpg").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT)));
+
+        // back.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("background2.jpg")).getImage().getScaledInstance(200, 50, Image.SCALE_SMOOTH)));
 
         l1 = new JLabel("Email");
         l2 = new JLabel("Password");
@@ -29,33 +54,51 @@ class Login {
         t1 = new JTextField();
         t2 = new JPasswordField();
 
+        Border border = new LineBorder(Color.BLACK, 2);
+
         b1 = new JButton("Login");
-        b2 = new JButton("Registration");
+        b1.setBorder(border);
+        b2 = new JLabel("Registration");
+        b2.setFont(new Font("", 0, 12));
 
-        l1.setBounds(70, 60, 100, 30);
-        l2.setBounds(70, 100, 100, 30);
+        Font font = new Font("Sans-Sarif", Font.BOLD, 17);
 
-        t1.setBounds(400, 60, 150, 30);
-        t2.setBounds(400, 100, 150, 30);
+        l1.setBounds(70, 100, 100, 30);
+        l2.setBounds(70, 160, 100, 30);
 
-        b1.setBounds(250, 250, 100, 30);
-        b2.setBounds(250, 300, 100, 30);
+        l1.setFont(font);
+        l2.setFont(font);
+
+        t1.setBorder(border);
+        t2.setBorder(border);
+        // t1.setFont(font);
+        // t2.setFont(font);
+        t1.setBounds(70, 132, 200, 30);
+        t2.setBounds(70, 192, 200, 30);
+
+        b1.setBackground(Color.BLACK);
+        b1.setForeground(Color.WHITE);
+
+        b1.setBounds(70, 240, 200, 30);
+        b2.setBounds(70, 270, 80, 30);
 
         frame.add(l1);
         frame.add(l2);
         frame.add(t1);
         frame.add(t2);
-        
+
         frame.getRootPane().setDefaultButton(b1);
         frame.add(b1);
         frame.add(b2);
-
+        // frame.add(back);
         frame.setVisible(true);
+        b1.addMouseListener(new MouseListener() {
 
-        b1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String ValidEmail = "^[a-zA-Z0-9_! #$%&'*+/=?`{|}~^. -]+@[a-zA-Z0-9. -]+$";
-                Pattern pattern = Pattern.compile(ValidEmail);
+            String ValidEmail = "^[a-zA-Z0-9_! #$%&'*+/=?`{|}~^. -]+@[a-zA-Z0-9. -]+$";
+            Pattern pattern = Pattern.compile(ValidEmail);
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
 
                 if (t1.getText().isEmpty() || t2.getText().isEmpty()) {
 
@@ -73,8 +116,6 @@ class Login {
 
                 else {
 
-                    ConnectJDBC con = new ConnectJDBC();
-
                     String email = t1.getText();
                     String password = t2.getText();
 
@@ -88,8 +129,9 @@ class Login {
 
                         if (rs.next()) {
                             GetEmail.g_email = t1.getText();
-                            new Choose();
                             frame.dispose();
+                            new Choose();
+
 
                         } else {
                             JOptionPane.showMessageDialog(frame, "Email or password is wrong!", "Error",
@@ -101,15 +143,58 @@ class Login {
                     } catch (Exception ee) {
                         System.out.println(ee);
                     }
+
                 }
+
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'mouseClicked'");
             }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+                b1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+                b1.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
+            }
+
         });
 
-        b2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
+        b2.addMouseListener(new MouseAdapter() {
+
+            public void mouseEntered(MouseEvent e) {
+                b2.setForeground(Color.BLUE);
+                b2.setFont(new Font("", Font.BOLD, 13));
+                b2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            public void mouseExited(MouseEvent e) {
+                b2.setForeground(Color.BLACK);
+                b2.setFont(new Font("", 0, 12));
+                b2.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+
+            public void mouseClicked(MouseEvent e) {
                 frame.dispose();
                 new Sign();
             }
+
         });
 
     }
@@ -118,6 +203,6 @@ class Login {
 
 public class LoginDemo {
     public static void main(String[] args) {
-        Login l = new Login();
+        new Login();
     }
 }

@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -6,22 +7,25 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.text.html.ImageView;
 
 import java.sql.*;
 import ConnectJDBC.ConnectJDBC;
 
-class Choose implements ActionListener {
+class Choose {
+    ConnectJDBC con = new ConnectJDBC();
     JFrame f;
     JButton b1, b2, b3;
     JCheckBox c;
     JLabel label;
-    ConnectJDBC con = new ConnectJDBC();
     String userFName;
     String userLName;
-    ImageIcon downIcon = new ImageIcon("down.png");
-    JLabel downButton = new JLabel(downIcon);
-
+    ImageIcon downIcon;
+    ImageIcon upIcon;
+    JLabel downButton;
     ImageIcon logoutIcon = new ImageIcon("logout.png");
     JLabel logoutButton = new JLabel(logoutIcon);
     JPopupMenu popupMenu;
@@ -35,9 +39,20 @@ class Choose implements ActionListener {
         f.setLayout(null);
         f.getContentPane().setBackground(Color.WHITE);
 
+        Border border = new LineBorder(Color.YELLOW, 2);
+        Border borderBtn = new LineBorder(Color.BLACK, 2);
+
+        upIcon = new ImageIcon("up.png");
+        downIcon = new ImageIcon("down.png");
+        downButton = new JLabel(downIcon);
+
         b1 = new JButton("Train Ticket");
         b2 = new JButton("Flight Ticket");
         b3 = new JButton("Bus Ticket");
+        
+        b1.setBorder(borderBtn);
+        b2.setBorder(borderBtn);
+        b3.setBorder(borderBtn);
 
         String nameSQL = "SELECT * FROM registration_detail WHERE email = '" + GetEmail.g_email + "'";
 
@@ -57,17 +72,33 @@ class Choose implements ActionListener {
             System.out.println(ee);
 
         }
-
+        JLabel name = new JLabel("JourneyJunction");
+        name.setFont(new Font("Calibri Bold",Font.ITALIC, 25));
+        name.setForeground(Color.YELLOW);
+        // name.setBorder(new EmptyBorder(10, 0, 0, 450));
+        name.setBorder(border);
+        
+        
         label = new JLabel("");
         label.setForeground(Color.WHITE);
         label.setFont(new Font("Sans-Sarif", 0, 15));
-        label.setHorizontalAlignment(SwingConstants.RIGHT);
+        // label.setHorizontalAlignment(SwingConstants.RIGHT);
         label.setText("" + userFName + " " + userLName + "");
-        label.setBorder(new EmptyBorder(0, 0, 0, 10));
+        label.setBorder(new EmptyBorder(0, 470, 0, 10));
+        
 
-        b1.setBounds(200, 100, 150, 30);
-        b2.setBounds(200, 140, 150, 30);
-        b3.setBounds(200, 180, 150, 30);
+
+        b1.setBounds(70, 100, 200, 40);
+        b2.setBounds(70, 160, 200, 40);
+        b3.setBounds(70, 220, 200, 40);
+
+        b1.setBackground(Color.BLACK);
+        b2.setBackground(Color.BLACK);
+        b3.setBackground(Color.BLACK);
+
+        b1.setForeground(Color.WHITE);
+        b2.setForeground(Color.WHITE);
+        b3.setForeground(Color.WHITE);
 
         popupMenu = new JPopupMenu();
         JMenuItem menuItem1 = new JMenuItem("Chnage Password");
@@ -99,7 +130,7 @@ class Choose implements ActionListener {
 
                         statement.executeUpdate();
                         statement.close();
-                        con.connection.close();
+                        ConnectJDBC.connection.close();
 
                     } catch (Exception ee) {
                         // TODO: handle exception
@@ -115,7 +146,26 @@ class Choose implements ActionListener {
 
         downButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
+                
+            }
+
+            public void mouseEntered(MouseEvent e) {
+
+                downButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                downButton.setIcon(upIcon);
                 popupMenu.show(downButton, 0, downButton.getHeight());
+                
+                
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // downButton.setIcon(downIcon);
+                
+            }
+            public void mouseReleased(MouseEvent e) {
+                downButton.setIcon(downIcon);
+                popupMenu.setVisible(false);
             }
         });
 
@@ -131,13 +181,22 @@ class Choose implements ActionListener {
 
                 }
             }
+
+            public void mouseEntered(MouseEvent e) {
+                logoutButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                
+            }
         });
-        panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        panel.setBounds(0, 0, 790, 30);
+        panel = new JPanel(new FlowLayout(FlowLayout.LEADING));
+        panel.setBounds(0, 0, 790, 50);
         panel.setBackground(Color.BLACK);
         panel.setBorder(new EmptyBorder(0, 0, 0, 10));
         downButton.setBorder(new EmptyBorder(0, 0, 0, 10));
-
+        panel.add(name);
         panel.add(label);
         panel.add(downButton);
         panel.add(logoutButton);
@@ -145,34 +204,84 @@ class Choose implements ActionListener {
         f.add(b2);
         f.add(b3);
         f.add(panel);
-        // f.add(label);
-        // f.add(downButton);
 
         f.setVisible(true);
 
-        b1.addActionListener(this);
-        b2.addActionListener(this);
-        b3.addActionListener(this);
+        b1.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
 
-    }
+                
+            }
 
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == b1) {
-    
-        }
-        if (e.getSource() == b2) {
-            f.dispose();
-            new Flight();
-        }
-        if (e.getSource() == b3) {
+            public void mouseEntered(MouseEvent e) {
+                b1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                b1.setBackground(Color.WHITE);
+                b1.setForeground(Color.BLACK);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                b1.setBackground(Color.BLACK);
+                b1.setForeground(Color.WHITE);
+            }
+            public void mouseReleased(MouseEvent e) {
+                
+            }
             
-        }
+        });
+
+        b2.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                new Flight();
+                
+            }
+
+            public void mouseEntered(MouseEvent e) {
+                b2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                b2.setBackground(Color.WHITE);
+                b2.setForeground(Color.BLACK);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                b2.setBackground(Color.BLACK);
+                b2.setForeground(Color.WHITE);
+            }
+            public void mouseReleased(MouseEvent e) {
+                
+            }
+            
+        });
+
+        b3.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                
+            }
+
+            public void mouseEntered(MouseEvent e) {
+                b3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                b3.setBackground(Color.WHITE);
+                b3.setForeground(Color.BLACK);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                b3.setBackground(Color.BLACK);
+                b3.setForeground(Color.WHITE);
+                
+            }
+            public void mouseReleased(MouseEvent e) {
+                
+            }
+            
+        });
+
     }
 
 }
 
 class Main {
     public static void main(String[] s) {
-        Choose cc = new Choose();
+        new Choose();
     }
 }

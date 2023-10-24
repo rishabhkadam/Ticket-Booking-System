@@ -87,7 +87,7 @@ class FlightList implements ActionListener {
 
         try {
 
-            Statement statement = con.connection.createStatement();
+            Statement statement = ConnectJDBC.connection.createStatement();
 
             ResultSet rs = statement.executeQuery(nameSQL);
 
@@ -132,7 +132,7 @@ class FlightList implements ActionListener {
 
                     statement.executeUpdate();
                     statement.close();
-                    con.connection.close();
+                    ConnectJDBC.connection.close();
 
                     JOptionPane.showMessageDialog(f, "Tickets are booked.", "Book", JOptionPane.INFORMATION_MESSAGE);
                     f.dispose();

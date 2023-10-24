@@ -10,7 +10,6 @@ public class ChangePassword implements ActionListener {
     JLabel pass, c_pass;
     JPasswordField t_pass, t_c_pass;
     JButton confirmButton, cancelButton;
-    ConnectJDBC con = new ConnectJDBC();
 
     ChangePassword() {
         f = new JFrame("Book Ticket");
@@ -69,14 +68,14 @@ public class ChangePassword implements ActionListener {
 
             else {
                 try {
-                    PreparedStatement statement = con.connection
+                    PreparedStatement statement = ConnectJDBC.connection
                             .prepareStatement("update registration_detail set password=? where email=?");
                     statement.setString(1, pass);
                     statement.setString(2, GetEmail.g_email);
 
                     statement.executeUpdate();
                     statement.close();
-                    con.connection.close();
+                    ConnectJDBC.connection.close();
 
                 } catch (Exception ee) {
                     // TODO: handle exception
