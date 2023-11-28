@@ -31,6 +31,9 @@ class Choose {
     JPopupMenu popupMenu;
     JPanel panel;
 
+    ImageIcon img_travel;
+    JLabel label_travel;
+
     Choose() {
         f = new JFrame("Book Ticket");
         f.setSize(800, 500);
@@ -38,6 +41,10 @@ class Choose {
         f.setLocationRelativeTo(null);
         f.setLayout(null);
         f.getContentPane().setBackground(Color.WHITE);
+
+        img_travel = new ImageIcon("travel.jpg");
+        label_travel = new JLabel(img_travel);
+        label_travel.setBounds(300, 100, 450, 300);
 
         Border border = new LineBorder(Color.YELLOW, 2);
         Border borderBtn = new LineBorder(Color.BLACK, 2);
@@ -75,22 +82,19 @@ class Choose {
         JLabel name = new JLabel("JourneyJunction");
         name.setFont(new Font("Calibri Bold",Font.ITALIC, 25));
         name.setForeground(Color.YELLOW);
-        // name.setBorder(new EmptyBorder(10, 0, 0, 450));
         name.setBorder(border);
         
         
         label = new JLabel("");
         label.setForeground(Color.WHITE);
         label.setFont(new Font("Sans-Sarif", 0, 15));
-        // label.setHorizontalAlignment(SwingConstants.RIGHT);
+        label.setHorizontalAlignment(SwingConstants.RIGHT);
         label.setText("" + userFName + " " + userLName + "");
-        label.setBorder(new EmptyBorder(0, 470, 0, 10));
-        
+        label.setBorder(new EmptyBorder(0, 350, 0, 10));
 
-
-        b1.setBounds(70, 100, 200, 40);
-        b2.setBounds(70, 160, 200, 40);
-        b3.setBounds(70, 220, 200, 40);
+        b1.setBounds(70, 150, 200, 40);
+        b2.setBounds(70, 210, 200, 40);
+        b3.setBounds(70, 270, 200, 40);
 
         b1.setBackground(Color.BLACK);
         b2.setBackground(Color.BLACK);
@@ -195,11 +199,15 @@ class Choose {
         panel.setBounds(0, 0, 790, 50);
         panel.setBackground(Color.BLACK);
         panel.setBorder(new EmptyBorder(0, 0, 0, 10));
+        // downButton.setBounds(780,5,10  ,10);
         downButton.setBorder(new EmptyBorder(0, 0, 0, 10));
+
         panel.add(name);
         panel.add(label);
         panel.add(downButton);
         panel.add(logoutButton);
+
+        f.add(label_travel);
         f.add(b1);
         f.add(b2);
         f.add(b3);
@@ -208,6 +216,7 @@ class Choose {
         f.setVisible(true);
 
         b1.addMouseListener(new MouseAdapter() {
+            
             public void mouseClicked(MouseEvent e) {
 
                 
@@ -255,7 +264,7 @@ class Choose {
 
         b3.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                
+                new BusTicket();
             }
 
             public void mouseEntered(MouseEvent e) {

@@ -1,22 +1,13 @@
-import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.sql.*;
 import java.util.regex.Pattern;
 
@@ -29,8 +20,8 @@ class Login {
     JButton b1;
     JLabel b2;
     JLabel l1, l2;
-    // JLabel back;
-    // BufferedImage img;
+    JLabel back;
+    ImageIcon img;
     ConnectJDBC con = new ConnectJDBC();
 
     Login() {
@@ -40,13 +31,10 @@ class Login {
         frame.setLocationRelativeTo(null);
         frame.setLayout(null);
         frame.getContentPane().setBackground(Color.WHITE);
-        
-        // ImageIcon imageIcon = new ImageIcon(new ImageIcon("backgound.jpg").getImage().getScaledInstance(800, 500, Image.SCALE_DEFAULT));
-        // back.setIcon(imageIcon);
 
-        // back.setIcon(new ImageIcon(new ImageIcon("background2.jpg").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT)));
 
-        // back.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("background2.jpg")).getImage().getScaledInstance(200, 50, Image.SCALE_SMOOTH)));
+        img = new ImageIcon("login.png");
+        back = new JLabel(img);
 
         l1 = new JLabel("Email");
         l2 = new JLabel("Password");
@@ -71,8 +59,9 @@ class Login {
 
         t1.setBorder(border);
         t2.setBorder(border);
-        // t1.setFont(font);
-        // t2.setFont(font);
+        t1.setFont(new Font("", Font.BOLD, 15));
+        t2.setFont(new Font("", Font.BOLD, 15));
+        
         t1.setBounds(70, 132, 200, 30);
         t2.setBounds(70, 192, 200, 30);
 
@@ -82,15 +71,16 @@ class Login {
         b1.setBounds(70, 240, 200, 30);
         b2.setBounds(70, 270, 80, 30);
 
+        back.setBounds(350, 5, 450, 450);
+
         frame.add(l1);
         frame.add(l2);
         frame.add(t1);
         frame.add(t2);
-
+        frame.add(back);
         frame.getRootPane().setDefaultButton(b1);
         frame.add(b1);
         frame.add(b2);
-        // frame.add(back);
         frame.setVisible(true);
         b1.addMouseListener(new MouseListener() {
 
@@ -164,14 +154,12 @@ class Login {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");
+                
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
+                
             }
 
         });

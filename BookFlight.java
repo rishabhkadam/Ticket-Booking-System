@@ -176,7 +176,7 @@ class Flight implements ActionListener {
             if (t3.getText().isEmpty() || t4.getText().isEmpty()
                     || t5.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(f, "All Fields are Mandatory!", "Error!",
-                        JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.WARNING_MESSAGE);  
             }
 
             else if ((comboBox1.getSelectedIndex() == 0) || (comboBox2.getSelectedIndex() == 0)) {
