@@ -136,8 +136,6 @@ class Login {
 
                 }
 
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'mouseClicked'");
             }
 
             @Override

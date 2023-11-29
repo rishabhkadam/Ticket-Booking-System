@@ -1,11 +1,15 @@
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.print.PrinterException;
 import java.awt.*;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import ConnectJDBC.ConnectJDBC;
 import java.sql.*;
@@ -21,6 +25,10 @@ class FlightList implements ActionListener {
     String userLName;
     String totalFare;
 
+    JFrame billFrame;
+    JTextArea textArea;
+    JButton p_btn, c_btn;
+
     FlightList() {
         f = new JFrame("Select Flight");
         f.setSize(800, 500);
@@ -29,6 +37,16 @@ class FlightList implements ActionListener {
         f.setLocationRelativeTo(null);
         f.setVisible(true);
         f.getContentPane().setBackground(Color.WHITE);
+
+        // BILL GERERATE FRAME
+        // ******************************
+        billFrame = new JFrame();
+        billFrame.setSize(800, 500);
+        billFrame.setLayout(null);
+        billFrame.setLocationRelativeTo(null);
+        billFrame.getContentPane().setBackground(Color.WHITE);
+
+        // ******************************
 
         label = new JLabel("SELECT FLIGHT");
         label.setFont(new Font("", Font.BOLD, 30));
@@ -104,11 +122,6 @@ class FlightList implements ActionListener {
         userGetName = "" + userFName + " " + userLName + "";
 
         if (e.getSource() == b_Button) {
-            // if (!f_List.) {
-            // JOptionPane.showMessageDialog(f, "Please select flight", "Select flight",
-            // JOptionPane.ERROR_MESSAGE);
-            // }
-            // else{
 
             String confirm = "Dept: " + GetFlightDetail.dept + "\nDest: " + GetFlightDetail.dest + "\n Date: "
                     + GetFlightDetail.date + " \n Adult: " + GetFlightDetail.adult + "\n Child: "
@@ -116,6 +129,8 @@ class FlightList implements ActionListener {
             int choice = JOptionPane.showConfirmDialog(f, confirm, "confirm", JOptionPane.OK_CANCEL_OPTION);
 
             if (choice == JOptionPane.OK_OPTION) {
+
+                Object[] options = { "Generate Bill" };
 
                 try {
                     PreparedStatement statement = con.connection
@@ -134,21 +149,97 @@ class FlightList implements ActionListener {
                     statement.close();
                     ConnectJDBC.connection.close();
 
-                    JOptionPane.showMessageDialog(f, "Tickets are booked.", "Book", JOptionPane.INFORMATION_MESSAGE);
+                    int Choice = JOptionPane.showOptionDialog(f, "Tickets are booked.", "Book",
+                            JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+
+                    String bill = "\n\n" + "******************************************" +
+                            "\n     JourneyJunction\n"
+                            + "\n**************************************\n" +
+                            "Date : " + GetFlightDetail.date + "\n" +
+                            "Name :" + userGetName + "\n" +
+                            "Flight :" + f_List.getSelectedItem() + "\n" +
+                            "Adult :" + GetFlightDetail.adult + "\n" +
+                            "Child :" + GetFlightDetail.child + "\n" +
+                            "                   Fare : Rs." + totalFare + "\n" +
+                            "*****************************************\n" +
+                            "        Thanks for Choosing Us.          \n" +
+                            "******************************************\n";
+
+                    textArea.setText(bill);
+                    textArea.setBounds(10, 10, 400, 400);
+                    p_btn.setBounds(20, 450, 100, 30);
+                    c_btn.setBounds(160, 450, 100, 30);
+
+                    p_btn.setForeground(Color.WHITE);
+                    p_btn.setBackground(Color.BLACK);
+
+                    c_btn.setForeground(Color.WHITE);
+                    c_btn.setBackground(Color.BLACK);
+
+                    billFrame.setUndecorated(false);
+
+                    billFrame.add(textArea);
+                    billFrame.add(p_btn);
+                    billFrame.add(c_btn);
+
+                    // Print button
+
+                    p_btn.addMouseListener(new MouseListener() {
+
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            try {
+                                textArea.print();
+                            } catch (PrinterException e1) {
+
+                                e1.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            
+                        }
+
+                        @Override
+                        public void mouseReleased(MouseEvent e) {
+                            
+                        }
+
+                        @Override
+                        public void mouseEntered(MouseEvent e) {
+                            p_btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                            p_btn.setForeground(Color.BLACK);
+                            p_btn.setBackground(Color.WHITE);
+                        }
+
+                        @Override
+                        public void mouseExited(MouseEvent e) {
+                            p_btn.setForeground(Color.WHITE);
+                            p_btn.setBackground(Color.BLACK);
+                        }
+
+                    });
+
+                    if (Choice == JOptionPane.OK_OPTION) {
+
+                        billFrame.setVisible(true);
+
+                    }
                     f.dispose();
-                    new Choose();
+
                 } catch (SQLException e1) {
-                    // TODO Auto-generated catch block
+
                     e1.printStackTrace();
                 }
             }
 
             // }
-        }
-        else if(e.getSource() == c_Button){
+        } else if (e.getSource() == c_Button) {
             f.dispose();
         }
     }
+
 }
 
 class SelectFlight {

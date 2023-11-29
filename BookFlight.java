@@ -1,5 +1,9 @@
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import ConnectJDBC.ConnectJDBC;
@@ -7,50 +11,160 @@ import java.time.LocalDate;
 
 class Flight implements ActionListener {
     JFrame f;
-    JLabel l1, l2, l3, l4, l5, l6;
+    JLabel l3, l4, l5, l6,swapL,label,imgL;
     JTextField t3, t4, t5, t6;
     JButton b1, b2;
+    ImageIcon img, swapIcon;
     ConnectJDBC con = new ConnectJDBC();
     JComboBox<String> comboBox1, comboBox2;
 
     Flight() {
         f = new JFrame("Book Your Flight");
-        f.setSize(500, 500);
+        f.setSize(800, 500);
         f.setLayout(null);
         f.setLocationRelativeTo(null);
+        f.getContentPane().setBackground(Color.WHITE);
 
-        l1 = new JLabel("From");
-        l2 = new JLabel("To");
-        l3 = new JLabel("Departure Date");
-        l4 = new JLabel("Adult");
-        l5 = new JLabel("Children");
+        label = new JLabel("Flight Ticket");
+        label.setFont(new Font("", Font.BOLD, 30));
+        label.setOpaque(true);
+        label.setForeground(Color.WHITE);
+        label.setBackground(Color.BLACK);
+        label.setBorder(new EmptyBorder(0, 10, 0, 0));
+        label.setBounds(0, 0, f.getWidth(), 50);
+
+        img = new ImageIcon("aeroplane.jpg");
+        imgL = new JLabel(img);
+        imgL.setBounds(370, 20, 450, 416);
+
+        swapIcon = new ImageIcon("swap.png");
+        swapL = new JLabel(swapIcon);
+        swapL.setBounds(210, 90, 50, 50);
+
+        Border border = new LineBorder(Color.BLACK, 2);
+
+        l3 = new JLabel("Departure Date      :");
+        l4 = new JLabel("Adult       :");
+        l5 = new JLabel("Children       :");
 
         LocalDate date = LocalDate.now();
         t3 = new JTextField(String.valueOf(date));
-        // t1 = new JTextField();
-        // t2 = new JTextField();
-        // t3 = new JTextField();
         t4 = new JTextField();
         t5 = new JTextField();
+
+        t3.setBorder(border);
+        t4.setBorder(border);
+        t5.setBorder(border);
+
+        t3.setFont(new Font("Sans-Sarif", Font.BOLD, 13));
+        t4.setFont(new Font("Sans-Sarif", Font.BOLD, 13));
+        t5.setFont(new Font("Sans-Sarif", Font.BOLD, 13));
 
         b1 = new JButton("Search");
         b2 = new JButton("Cancel");
 
-        l1.setBounds(50, 50, 100, 20);
-        l2.setBounds(50, 100, 100, 20);
-        l3.setBounds(50, 150, 180, 25);
-        l4.setBounds(50, 200, 100, 20);
-        l5.setBounds(50, 250, 100, 20);
+        b1.setBackground(Color.BLACK);
+        b1.setForeground(Color.WHITE);
+        b2.setBackground(Color.BLACK);
+        b2.setForeground(Color.WHITE);
 
-        t3.setBounds(300, 150, 150, 30);
-        t4.setBounds(300, 200, 150, 30);
-        t5.setBounds(300, 250, 150, 30);
+        l3.setBounds(70, 150, 180, 25);
+        l4.setBounds(150, 200, 100, 20);
+        l5.setBounds(120, 250, 100, 20);
 
-        b1.setBounds(100, 400, 150, 40);
-        b2.setBounds(300, 400, 150, 40);
+        l3.setFont(new Font("Sans-Sarif", Font.BOLD, 18));
+        l4.setFont(new Font("Sans-Sarif", Font.BOLD, 18));
+        l5.setFont(new Font("Sans-Sarif", Font.BOLD, 18));
+
+        t3.setBounds(270, 150, 150, 30);
+        t4.setBounds(270, 200, 150, 30);
+        t5.setBounds(270, 250, 150, 30);
+
+        b1.setBounds(120, 300, 100, 30);
+        b2.setBounds(250, 300, 100, 30);
 
         String[] airports = {
-                "Select",
+                "From",
+                "Agartala (IXA)",
+                "Agra (AGR)",
+                "Ahmedabad (AMD)",
+                "Aizawl (AJL)",
+                "Amritsar (ATQ)",
+                "Aurangabad (IXU)",
+                "Bagdogra (IXB)",
+                "Bareilly (BEK)",
+                "Belagavi (IXG)",
+                "Bengaluru (BLR)",
+                "Bhopal (BHO)",
+                "Bhubaneswar (BBI)",
+                "Chandigarh (IXC)",
+                "Chennai (MAA)",
+                "Coimbatore (CJB)",
+                "Darbhanga (DBR)",
+                "Dehradun (DED)",
+                "Delhi (DEL)",
+                "Deoghar (DGH)",
+                "Dibrugarh (DIB)",
+                "Dimapur (DMU)",
+                "Durgapur (RDP)",
+                "Gaya (GAY)",
+                "Goa (GOI)",
+                "Gorakhpur (GOP)",
+                "Guwahati (GAU)",
+                "Gwalior (GWL)",
+                "Hubli (HBX)",
+                "Hyderabad (HYD)",
+                "Imphal (IMF)",
+                "Indore (IDR)",
+                "Itanagar (HGI)",
+                "Jabalpur (JLR)",
+                "Jaipur (JAI)",
+                "Jammu (IXJ)",
+                "Jodhpur (JDH)",
+                "Jorhat (JRH)",
+                "Kadapa (CDP)",
+                "Kannur (CNN)",
+                "Kanpur (KNU)",
+                "Kochi (COK)",
+                "Kolhapur (KLH)",
+                "Kolkata (CCU)",
+                "Kozhikode (CCJ)",
+                "Kurnool (KJB)",
+                "Leh (IXL)",
+                "Lucknow (LKO)",
+                "Madurai (IXM)",
+                "Mangaluru (IXE)",
+                "Mumbai (BOM)",
+                "Mysuru (MYQ)",
+                "Nagpur (NAG)",
+                "North Goa (GOX)",
+                "Pantnagar (PGH)",
+                "Patna (PAT)",
+                "Port-Blair (IXZ)",
+                "Prayagraj (IXD)",
+                "Pune (PNQ)",
+                "Raipur (RPR)",
+                "Rajahmundry (RJA)",
+                "Rajkot (RAJ)",
+                "Ranchi (IXR)",
+                "Shillong (SHL)",
+                "Shirdi (SAG)",
+                "Silchar (IXS)",
+                "Srinagar (SXR)",
+                "Surat (STV)",
+                "Thiruvananthapuram (TRV)",
+                "Tiruchirappalli (TRZ)",
+                "Tirupati (TIR)",
+                "Tuticorin (TCR)",
+                "Udaipur (UDR)",
+                "Vadodara (BDQ)",
+                "Varanasi (VNS)",
+                "Vijayawada (VGA)",
+                "Visakhapatnam (VTZ)"
+        };
+
+        String[] airports1 = {
+                "To",
                 "Agartala (IXA)",
                 "Agra (AGR)",
                 "Ahmedabad (AMD)",
@@ -131,20 +245,27 @@ class Flight implements ActionListener {
 
         DefaultComboBoxModel<String> cityComboBoxModel = new DefaultComboBoxModel<>(airports);
         comboBox1 = new JComboBox<>(cityComboBoxModel);
-        comboBox1.setBounds(300, 50, 150, 30);
+        comboBox1.setBounds(50, 100, 150, 30);
+        comboBox1.setBorder(border);
+        comboBox1.setBackground(Color.WHITE);
+        comboBox1.setForeground(Color.BLACK);
 
-        DefaultComboBoxModel<String> cityComboBoxModel2 = new DefaultComboBoxModel<>(airports);
+        DefaultComboBoxModel<String> cityComboBoxModel2 = new DefaultComboBoxModel<>(airports1);
         comboBox2 = new JComboBox<>(cityComboBoxModel2);
-        comboBox2.setBounds(300, 100, 150, 30);
+        comboBox2.setBounds(270, 100, 150, 30);
+        comboBox2.setBorder(border);
+        comboBox2.setBackground(Color.WHITE);
+        comboBox2.setForeground(Color.BLACK);
 
-        f.add(l1);
-        f.add(l2);
+        f.add(label);
+        f.add(imgL);
         f.add(l3);
         f.add(l4);
         f.add(l5);
 
         f.add(comboBox1);
         f.add(comboBox2);
+        f.add(swapL);
         f.add(t3);
         f.add(t4);
         f.add(t5);
@@ -153,16 +274,6 @@ class Flight implements ActionListener {
         f.add(b1);
         f.add(b2);
 
-        l1.setFont(new Font("Arial", Font.BOLD, 24));
-        l2.setFont(new Font("Arial", Font.BOLD, 24));
-        l3.setFont(new Font("Arial", Font.BOLD, 24));
-        l4.setFont(new Font("Arial", Font.BOLD, 24));
-        l5.setFont(new Font("Arial", Font.BOLD, 24));
-
-        b1.setFont(new Font("Dialog", Font.BOLD, 30));
-        b2.setFont(new Font("Dialog", Font.BOLD, 30));
-
-        // t1.setFont(new Font("Arial", Font.BOLD, 30));
         f.setVisible(true);
 
         b1.addActionListener(this);
@@ -207,7 +318,7 @@ class Flight implements ActionListener {
         }
         if (e.getSource() == b2) {
             f.dispose();
-            new Choose();
+            
         }
     }
 }

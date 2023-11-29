@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.time.LocalDate;
 
-class BusTicket {
+class TrainTicket {
 
     JFrame f;
     JLabel label;
@@ -17,20 +17,19 @@ class BusTicket {
     ImageIcon img, swapIcon;
     JButton searchB, cancelB;
     JTextField TfDate,TfChild,Tfadult;
-    JCheckBox checkBox;
 
-    BusTicket() {
+    TrainTicket() {
 
-        f = new JFrame("Bus Ticket");
+        f = new JFrame("Train Ticket");
         f.setSize(800, 500);
         f.setResizable(false);
         f.setLayout(null);
         f.setLocationRelativeTo(null);
         f.getContentPane().setBackground(Color.WHITE);
-        
+
         Border border = new LineBorder(Color.BLACK, 2);
 
-        label = new JLabel("Bus Ticket");
+        label = new JLabel("Train Ticket");
         label.setFont(new Font("", Font.BOLD, 30));
         label.setOpaque(true);
         label.setForeground(Color.WHITE);
@@ -38,9 +37,9 @@ class BusTicket {
         label.setBorder(new EmptyBorder(0, 10, 0, 0));
         label.setBounds(0, 0, f.getWidth(), 50);
 
-        img = new ImageIcon("bus_img.jpg");
+        img = new ImageIcon("train.jpg");
         imgL = new JLabel(img);
-        imgL.setBounds(350, 20, 450, 416);
+        imgL.setBounds(370, 20, 450, 416);
 
         swapIcon = new ImageIcon("swap.png");
         iconL = new JLabel(swapIcon);
@@ -72,84 +71,174 @@ class BusTicket {
         Tfadult.setFont(new Font("Sans-Sarif", Font.BOLD, 13));
         Tfadult.setBorder(border);
 
-        checkBox = new JCheckBox("INFANT?");
-        checkBox.setFont(new Font("Sans-Sarif", Font.BOLD, 18));
-        checkBox.setBorder(border);
-
-
-        String[] indianCities = {
-                "From",
-                "Mumbai",
-                "Delhi",
-                "Bangalore",
-                "Hyderabad",
-                "Chennai",
-                "Kolkata",
-                "Ahmedabad",
-                "Pune",
-                "Jaipur",
-                "Lucknow",
-                "Kanpur",
-                "Nagpur",
-                "Visakhapatnam",
-                "Indore",
-                "Thane",
-                "Bhopal",
-                "Patna",
-                "Vadodara",
-                "Ghaziabad",
-                "Ludhiana",
-                "Agra",
-                "Nashik",
-                "Faridabad",
-                "Meerut",
-                "Rajkot",
-                "Kalyan-Dombivli",
-                "Vasai-Virar",
-                "Varanasi",
-                "Srinagar",
+        String[] indian_railway_stations = {
+            "from",
+    "New Delhi",
+    "Mumbai Central",
+    "Chennai Central",
+    "Kolkata Howrah",
+    "Bengaluru City",
+    "Hyderabad Deccan",
+    "Ahmedabad Junction",
+    "Pune Junction",
+    "Jaipur Junction",
+    "Lucknow Junction",
+    "Patna Junction",
+    "Bhopal Junction",
+    "Kochi Ernakulam",
+    "Guwahati Junction",
+    "Chandigarh Junction",
+    "Vadodara Junction",
+    "Varanasi Junction",
+    "Thiruvananthapuram Central",
+    "Bhubaneswar",
+    "Indore Junction",
+    "Nagpur Junction",
+    "Agra Cantt",
+    "Amritsar Junction",
+    "Rajkot Junction",
+    "Jodhpur Junction",
+    "Visakhapatnam Junction",
+    "Secunderabad Junction",
+    "Surat",
+    "Kanpur Central",
+    "Coimbatore Junction",
+    "Raipur Junction",
+    "Ranchi Junction",
+    "Gorakhpur Junction",
+    "Jamshedpur Tatanagar",
+    "Allahabad Junction",
+    "Mysuru Junction",
+    "Trichy Junction",
+    "Vijayawada Junction",
+    "Madurai Junction",
+    "Ahmednagar",
+    "Amravati",
+    "Jalandhar City",
+    "Ludhiana Junction",
+    "Tirupati Main",
+    "Gwalior Junction",
+    "Hisar",
+    "Jhansi Junction",
+    "Ajmer Junction",
+    "Kota Junction",
+    "Dhanbad Junction",
+    "Hajipur Junction",
+    "Udaipur City",
+    "Jammu Tawi",
+    "Siliguri Junction",
+    "Aurangabad",
+    "Cuttack",
+    "Kollam Junction",
+    "Dehradun",
+    "Kottayam",
+    "Gaya Junction",
+    "Warangal",
+    "Rourkela",
+    "Salem Junction",
+    "Nellore",
+    "Patiala",
+    "Guntur Junction",
+    "Ratlam Junction",
+    "Aligarh Junction",
+    "Durgapur",
+    "Vellore Katpadi",
+    "Dibrugarh",
+    "Guntakal Junction",
+    "Kakinada Junction",
+    "Tirunelveli Junction",
+    
         };
 
-        String[] indianCities1 = {
-                "To",
-                "Mumbai",
-                "Delhi",
-                "Bangalore",
-                "Hyderabad",
-                "Chennai",
-                "Kolkata",
-                "Ahmedabad",
-                "Pune",
-                "Jaipur",
-                "Lucknow",
-                "Kanpur",
-                "Nagpur",
-                "Visakhapatnam",
-                "Indore",
-                "Thane",
-                "Bhopal",
-                "Patna",
-                "Vadodara",
-                "Ghaziabad",
-                "Ludhiana",
-                "Agra",
-                "Nashik",
-                "Faridabad",
-                "Meerut",
-                "Rajkot",
-                "Kalyan-Dombivli",
-                "Vasai-Virar",
-                "Varanasi",
-                "Srinagar",
+
+        String[] indian_railway_stations1 = {
+            "To",
+    "New Delhi",
+    "Mumbai Central",
+    "Chennai Central",
+    "Kolkata Howrah",
+    "Bengaluru City",
+    "Hyderabad Deccan",
+    "Ahmedabad Junction",
+    "Pune Junction",
+    "Jaipur Junction",
+    "Lucknow Junction",
+    "Patna Junction",
+    "Bhopal Junction",
+    "Kochi Ernakulam",
+    "Guwahati Junction",
+    "Chandigarh Junction",
+    "Vadodara Junction",
+    "Varanasi Junction",
+    "Thiruvananthapuram Central",
+    "Bhubaneswar",
+    "Indore Junction",
+    "Nagpur Junction",
+    "Agra Cantt",
+    "Amritsar Junction",
+    "Rajkot Junction",
+    "Jodhpur Junction",
+    "Visakhapatnam Junction",
+    "Secunderabad Junction",
+    "Surat",
+    "Kanpur Central",
+    "Coimbatore Junction",
+    "Raipur Junction",
+    "Ranchi Junction",
+    "Gorakhpur Junction",
+    "Jamshedpur Tatanagar",
+    "Allahabad Junction",
+    "Mysuru Junction",
+    "Trichy Junction",
+    "Vijayawada Junction",
+    "Madurai Junction",
+    "Ahmednagar",
+    "Amravati",
+    "Jalandhar City",
+    "Ludhiana Junction",
+    "Tirupati Main",
+    "Gwalior Junction",
+    "Hisar",
+    "Jhansi Junction",
+    "Ajmer Junction",
+    "Kota Junction",
+    "Dhanbad Junction",
+    "Hajipur Junction",
+    "Udaipur City",
+    "Jammu Tawi",
+    "Siliguri Junction",
+    "Aurangabad",
+    "Cuttack",
+    "Kollam Junction",
+    "Dehradun",
+    "Kottayam",
+    "Gaya Junction",
+    "Warangal",
+    "Rourkela",
+    "Salem Junction",
+    "Nellore",
+    "Patiala",
+    "Guntur Junction",
+    "Ratlam Junction",
+    "Aligarh Junction",
+    "Durgapur",
+    "Vellore Katpadi",
+    "Dibrugarh",
+    "Guntakal Junction",
+    "Kakinada Junction",
+    "Tirunelveli Junction",
+    
         };
 
-        DefaultComboBoxModel<String> cityComboBoxModel = new DefaultComboBoxModel<>(indianCities);
+
+        DefaultComboBoxModel<String> cityComboBoxModel = new DefaultComboBoxModel<>(indian_railway_stations);
         deptBox = new JComboBox<>(cityComboBoxModel);
         deptBox.setBorder(border);
         deptBox.setBackground(Color.WHITE);
         deptBox.setForeground(Color.BLACK);
 
-        DefaultComboBoxModel<String> cityCComboBoxModel = new DefaultComboBoxModel<>(indianCities1);
+
+        DefaultComboBoxModel<String> cityCComboBoxModel = new DefaultComboBoxModel<>(indian_railway_stations1);
         destBox = new JComboBox<>(cityCComboBoxModel);
         destBox.setBorder(border);
         destBox.setBackground(Color.WHITE);
@@ -161,15 +250,17 @@ class BusTicket {
 
         DefaultComboBoxModel<String> citySComboBoxModel = new DefaultComboBoxModel<>(seatType);
         seatBox = new JComboBox<>(citySComboBoxModel);
+        seatBox.setBorder(border);
         seatBox.setBackground(Color.WHITE);
         seatBox.setForeground(Color.BLACK);
 
-        String[] busType = {
+        String[] trainType = {
                 "AC", "Non-AC"
         };
 
-        DefaultComboBoxModel<String> cityBComboBoxModel = new DefaultComboBoxModel<>(busType);
+        DefaultComboBoxModel<String> cityBComboBoxModel = new DefaultComboBoxModel<>(trainType);
         busBox = new JComboBox<>(cityBComboBoxModel);
+        busBox.setBorder(border);
         busBox.setBackground(Color.WHITE);
         busBox.setForeground(Color.BLACK);
 
@@ -200,15 +291,13 @@ class BusTicket {
         adultL.setBounds(140, 300, 100, 30);
         Tfadult.setBounds(270, 300, 50, 30);
 
-        checkBox.setBounds(270, 340, 130, 30);
-
         searchB.setBounds(120, 400, 100, 30);
         cancelB.setBounds(250, 400, 100, 30);
 
         f.add(label);
+        f.add(iconL);
         f.add(imgL);
         f.add(deptBox);
-        f.add(iconL);
         f.add(destBox);
         f.add(seatL);
         f.add(seatBox);
@@ -220,7 +309,6 @@ class BusTicket {
         f.add(TfChild);
         f.add(adultL);
         f.add(Tfadult);
-        f.add(checkBox);
         f.add(searchB);
         f.add(cancelB);
         f.setVisible(true);
@@ -235,12 +323,12 @@ class BusTicket {
                 
                 if(deptBox.getSelectedIndex() == 0 || destBox.getSelectedIndex() == 0){
 
-                    JOptionPane.showMessageDialog(f, "Please Select City", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(f, "Please Select Station", "Error", JOptionPane.ERROR_MESSAGE);
                 }
 
                 else if(deptBox.getSelectedItem() == destBox.getSelectedItem()){
 
-                    JOptionPane.showMessageDialog(f, "Please Select Different city", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(f, "Please Select Different Station", "Error", JOptionPane.ERROR_MESSAGE);
 
                 }
 
@@ -257,15 +345,15 @@ class BusTicket {
 
                 else{
 
-                    GetBusDetail.dept = (String) deptBox.getSelectedItem();
-                    GetBusDetail.dest = (String) destBox.getSelectedItem();
-                    GetBusDetail.seat = (String) seatBox.getSelectedItem();
-                    GetBusDetail.bus = (String) busBox.getSelectedItem();
-                    GetBusDetail.date = TfDate.getText();
-                    GetBusDetail.adult = Tfadult.getText();
-                    GetBusDetail.child = TfChild.getText(); 
+                    GetTrainDetail.dept = (String) deptBox.getSelectedItem();
+                    GetTrainDetail.dest = (String) destBox.getSelectedItem();
+                    GetTrainDetail.seat = (String) seatBox.getSelectedItem();
+                    GetTrainDetail.bus = (String) busBox.getSelectedItem();
+                    GetTrainDetail.date = TfDate.getText();
+                    GetTrainDetail.adult = Tfadult.getText();
+                    GetTrainDetail.child = TfChild.getText(); 
  
-                    new BusList();
+                    new TrainList();
 
                 }
             }
@@ -330,8 +418,8 @@ class BusTicket {
     }
 }
 
-class BookBus {
+class BookTrain {
     public static void main(String[] args) {
-        new BusTicket();
+        new TrainTicket();
     }
 }
