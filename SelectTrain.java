@@ -10,10 +10,10 @@ import javax.swing.border.EmptyBorder;
 import ConnectJDBC.ConnectJDBC;
 import java.sql.*;
 
-class BusList implements ActionListener {
+class TrainList implements ActionListener {
     JFrame f;
     JLabel label;
-    List b_List, p_List;
+    List t_List, p_List;
     JButton b_Button, c_Button;
     ConnectJDBC con = new ConnectJDBC();
     String userGetName;
@@ -21,8 +21,8 @@ class BusList implements ActionListener {
     String userLName;
     String totalFare;
 
-    BusList() {
-        f = new JFrame("Select Bus");
+    TrainList() {
+        f = new JFrame("Select Train");
         f.setSize(800, 500);
         f.setResizable(false);
         f.setLayout(null);
@@ -30,27 +30,28 @@ class BusList implements ActionListener {
         f.setVisible(true);
         f.getContentPane().setBackground(Color.WHITE);
 
-        label = new JLabel("SELECT BUS");
+        label = new JLabel("SELECT Train");
         label.setFont(new Font("", Font.BOLD, 30));
         label.setOpaque(true);
         label.setForeground(Color.WHITE);
         label.setBackground(Color.BLACK);
         label.setBorder(new EmptyBorder(0, 10, 0, 0));
 
-        b_List = new List(16);
-        b_List.setFont(new Font("", Font.PLAIN, 15));
+        t_List = new List(16);
+        t_List.setFont(new Font("", Font.PLAIN, 15));
 
-        String bus_list[] = { "Tata starbus", "Eicher", "Isuzu", "Mahindra Cruzio", "Ashok Leyland", "Volvo",
-                "Marcedes-Benz"};
+        String train_list[] = { "12301 - Rajdhani Express", "12002 - Shatabdi Express", "12213 - Duronto Express",
+                "12049 - Gatimaan Express", "12503 - Humsafar", "12203 - Garib R€th Express",
+                "22119 - Tejas Express" };
 
-        for (int i = 0; i < bus_list.length; i++) {
-            b_List.add(bus_list[i]);
+        for (int i = 0; i < train_list.length; i++) {
+            t_List.add(train_list[i]);
         }
 
         p_List = new List(16);
         p_List.setFont(new Font("", Font.PLAIN, 15));
 
-        String price_list[] = { "620", "741", "658", "784", "628", "755", "1500" };
+        String price_list[] = { "620", "741", "658", "450", "230", "410", "504" };
 
         for (int i = 0; i < price_list.length; i++) {
             p_List.add(price_list[i]);
@@ -60,14 +61,14 @@ class BusList implements ActionListener {
         c_Button = new JButton("Cancel");
 
         label.setBounds(0, 10, f.getWidth(), 50);
-        b_List.setBounds(10, 100, 200, 200);
+        t_List.setBounds(10, 100, 200, 200);
         p_List.setBounds(220, 100, 100, 200);
         f.getRootPane().setDefaultButton(b_Button);
         b_Button.setBounds(30, 350, 100, 30);
         c_Button.setBounds(150, 350, 100, 30);
 
         f.add(label);
-        f.add(b_List);
+        f.add(t_List);
         f.add(p_List);
         f.add(b_Button);
         f.add(c_Button);
@@ -79,8 +80,8 @@ class BusList implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
 
-        int bus_price = Integer.parseInt(p_List.getItem(b_List.getSelectedIndex()));
-        int price = bus_price * (Integer.parseInt(GetBusDetail.adult) + Integer.parseInt(GetBusDetail.child));
+        int train_price = Integer.parseInt(p_List.getItem(t_List.getSelectedIndex()));
+        int price = train_price * (Integer.parseInt(GetTrainDetail.adult) + Integer.parseInt(GetTrainDetail.child));
         totalFare = String.valueOf(price);
 
         String nameSQL = "SELECT * FROM registration_detail WHERE email = '" + GetEmail.g_email + "'";
@@ -105,28 +106,28 @@ class BusList implements ActionListener {
 
         if (e.getSource() == b_Button) {
 
-            String confirm = "Dept: " + GetBusDetail.dept + "\nDest: " + GetBusDetail.dest + "\n Date: "
-                    + GetBusDetail.date + " \n Adult: " + GetBusDetail.adult + "\n Child: "
-                    + GetBusDetail.child + "\n Total Fare: " + totalFare + "";
+            String confirm = "Dept: " + GetTrainDetail.dept + "\nDest: " + GetTrainDetail.dest + "\n Date: "
+                    + GetTrainDetail.date + " \n Adult: " + GetTrainDetail.adult + "\n Child: "
+                    + GetTrainDetail.child + "\n Total Fare: " + totalFare + "";
             int choice = JOptionPane.showConfirmDialog(f, confirm, "confirm", JOptionPane.OK_CANCEL_OPTION);
 
-            int totalSeats = Integer.parseInt(GetBusDetail.adult) + Integer.parseInt(GetBusDetail.child);
+            int totalSeats = Integer.parseInt(GetTrainDetail.adult) + Integer.parseInt(GetTrainDetail.child);
             if (choice == JOptionPane.OK_OPTION) {
 
                 try {
                     PreparedStatement statement = con.connection
-                            .prepareStatement("INSERT INTO bus_booking_detail VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+                            .prepareStatement("INSERT INTO train_booking_detail VALUES(?,?,?,?,?,?,?,?,?,?,?)");
                     statement.setString(1, userGetName);
                     statement.setString(2, GetEmail.g_email);
-                    statement.setString(3, GetBusDetail.dept);
-                    statement.setString(4, GetBusDetail.dest);
-                    statement.setString(5, GetBusDetail.date);
-                    statement.setString(6, GetBusDetail.seat);
-                    statement.setString(7, b_List.getSelectedItem());
+                    statement.setString(3, GetTrainDetail.dept);
+                    statement.setString(4, GetTrainDetail.dest);
+                    statement.setString(5, GetTrainDetail.date);
+                    statement.setString(6, GetTrainDetail.seat);
+                    statement.setString(7, t_List.getSelectedItem());
                     statement.setString(8, String.valueOf(totalSeats));
-                    statement.setString(9, totalFare);
-                    statement.setString(10, GetBusDetail.child);
-                    statement.setString(11, GetBusDetail.adult);
+                    statement.setString(9, GetTrainDetail.adult);
+                    statement.setString(10, GetTrainDetail.child);
+                    statement.setString(11, totalFare);
 
                     statement.executeUpdate();
                     statement.close();
@@ -136,21 +137,19 @@ class BusList implements ActionListener {
                     f.dispose();
                     
                 } catch (SQLException e1) {
-                    // TODO Auto-generated catch block
+
                     e1.printStackTrace();
                 }
             }
 
-            // }
-        }
-        else if(e.getSource() == c_Button){
+        } else if (e.getSource() == c_Button) {
             f.dispose();
         }
     }
 }
 
-class SelectBus {
+class SelectTrain {
     public static void main(String[] args) {
-        new BusList();
+        new TrainList();
     }
 }

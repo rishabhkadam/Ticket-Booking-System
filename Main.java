@@ -218,7 +218,7 @@ class Choose {
         b1.addMouseListener(new MouseAdapter() {
             
             public void mouseClicked(MouseEvent e) {
-
+                new TrainTicket();
                 
             }
 
