@@ -8,4 +8,7 @@ public class GetTrainDetail {
     public static String child;
     public static String adult;
     public static String infrant;
+    public static String trainName;
+    public static String fare;
+
 }

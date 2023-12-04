@@ -21,7 +21,6 @@ class FlightList implements ActionListener {
     String userLName;
     public String totalFare;
 
-
     FlightList() {
         f = new JFrame("Select Flight");
         f.setSize(800, 500);
@@ -86,6 +85,7 @@ class FlightList implements ActionListener {
         b_Button.addActionListener(this);
         c_Button.addActionListener(this);
 
+
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -123,8 +123,6 @@ class FlightList implements ActionListener {
 
             if (choice == JOptionPane.OK_OPTION) {
 
-                Object[] options = { "Generate Bill" };
-
                 try {
                     PreparedStatement statement = con.connection
                             .prepareStatement("INSERT INTO flight_booking_detail VALUES(?,?,?,?,?,?,?,?,?)");
@@ -142,13 +140,18 @@ class FlightList implements ActionListener {
                     statement.close();
                     ConnectJDBC.connection.close();
 
+                    Object[] options = { "Generate Bill" };
+                    
                     int Choice = JOptionPane.showOptionDialog(f, "Tickets are booked.", "Book",
                             JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 
+
+                    GetFlightDetail.flightName = f_List.getSelectedItem();
+                    GetFlightDetail.fare = totalFare;
+                    GetEmail.name = userGetName;
+
                     if (Choice == JOptionPane.OK_OPTION) {
-
-                        // flightBill();
-
+                            new FlightBilll();
                     }
                     f.dispose();
 
@@ -163,98 +166,9 @@ class FlightList implements ActionListener {
         }
     }
 
-    // private void flightBill() {
-    //     JFrame frame;
-    //     // JTextArea textArea;
-    //     // JButton p_btn, c_btn;
-    //     JLabel billLabel;
+   
 
-    //     frame = new JFrame();
-    //     frame.setSize(800, 500);
-    //     frame.setLayout(null);
-    //     frame.setLocationRelativeTo(null);
-    //     frame.getContentPane().setBackground(Color.WHITE);
-    //     frame.setVisible(true);
-    //     frame.setUndecorated(true);
-
-    //     String bill = "\n\n" + "******************************************" +
-    //             "\n     JourneyJunction\n"
-    //             + "\n**************************************\n" +
-    //             "Date : " + GetFlightDetail.date + "\n" +
-    //             "Name :" + userGetName + "\n" +
-    //             "Flight :" + f_List.getSelectedItem() + "\n" +
-    //             "Adult :" + GetFlightDetail.adult + "\n" +
-    //             "Child :" + GetFlightDetail.child + "\n" +
-    //             "                   Fare : Rs." + totalFare + "\n" +
-    //             "*****************************************\n" +
-    //             "        Thanks for Choosing Us.          \n" +
-    //             "******************************************\n";
-
-    //             billLabel = new JLabel("Bill");
-    //             billLabel.setBounds(10, 10, 100, 30);
-    //             frame.add(billLabel);
-
-        // textArea = new JTextArea();
-        // textArea.append(bill);
-        // textArea.setBounds(10, 10, 400, 400);
-        
-        // p_btn = new JButton("Print");
-        // c_btn = new JButton("Cancel");
-        // p_btn.setBounds(20, 450, 100, 30);
-        // c_btn.setBounds(160, 450, 100, 30);
-        
-        // p_btn.setForeground(Color.WHITE);
-        // p_btn.setBackground(Color.BLACK);
-
-        // c_btn.setForeground(Color.WHITE);
-        // c_btn.setBackground(Color.BLACK);
-
-        // frame.add(textArea);
-        // frame.add(p_btn);
-        // frame.add(c_btn);
-
-        // Print button
-
-        // p_btn.addMouseListener(new MouseListener() {
-
-        //     @Override
-        //     public void mouseClicked(MouseEvent e) {
-        //         try {
-        //             textArea.print();
-        //         } catch (PrinterException e1) {
-
-        //             e1.printStackTrace();
-        //         }
-        //     }
-
-        //     @Override
-        //     public void mousePressed(MouseEvent e) {
-
-        //     }
-
-        //     @Override
-        //     public void mouseReleased(MouseEvent e) {
-
-        //     }
-
-        //     @Override
-        //     public void mouseEntered(MouseEvent e) {
-        //         p_btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        //         p_btn.setForeground(Color.BLACK);
-        //         p_btn.setBackground(Color.WHITE);
-        //     }
-
-        //     @Override
-        //     public void mouseExited(MouseEvent e) {
-        //         p_btn.setForeground(Color.WHITE);
-        //         p_btn.setBackground(Color.BLACK);
-        //     }
-
-        // });
-
-    }
-
-
+}
 
 class SelectFlight {
     public static void main(String[] args) {

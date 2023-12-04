@@ -132,7 +132,14 @@ class BusList implements ActionListener {
                     statement.close();
                     ConnectJDBC.connection.close();
 
-                    JOptionPane.showMessageDialog(f, "Tickets are booked.", "Book", JOptionPane.INFORMATION_MESSAGE);
+                    Object[] options = { "Generate Bill" };
+                    
+                    int Choice = JOptionPane.showOptionDialog(f, "Tickets are booked.", "Book",
+                            JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+                    
+                            if (Choice == JOptionPane.OK_OPTION) {
+                            new BusBilll();
+                    }
                     f.dispose();
                     
                 } catch (SQLException e1) {

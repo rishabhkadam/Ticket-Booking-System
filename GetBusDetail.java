@@ -7,4 +7,6 @@ public class GetBusDetail {
     public static String child;
     public static String adult;
     public static String infrant;
+    public static String busName;
+    public static String fare;
 }

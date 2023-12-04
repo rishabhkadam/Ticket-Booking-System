@@ -112,6 +112,10 @@ class TrainList implements ActionListener {
             int choice = JOptionPane.showConfirmDialog(f, confirm, "confirm", JOptionPane.OK_CANCEL_OPTION);
 
             int totalSeats = Integer.parseInt(GetTrainDetail.adult) + Integer.parseInt(GetTrainDetail.child);
+
+            GetTrainDetail.trainName = t_List.getSelectedItem();
+            GetTrainDetail.fare = totalFare;
+
             if (choice == JOptionPane.OK_OPTION) {
 
                 try {
@@ -133,7 +137,14 @@ class TrainList implements ActionListener {
                     statement.close();
                     ConnectJDBC.connection.close();
 
-                    JOptionPane.showMessageDialog(f, "Tickets are booked.", "Book", JOptionPane.INFORMATION_MESSAGE);
+                     Object[] options = { "Generate Bill" };
+                    
+                    int Choice = JOptionPane.showOptionDialog(f, "Tickets are booked.", "Book",
+                            JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+                    
+                    if (Choice == JOptionPane.OK_OPTION) {
+                            new TrainBilll();
+                    }
                     f.dispose();
                     
                 } catch (SQLException e1) {
